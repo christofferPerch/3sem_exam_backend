@@ -1,0 +1,57 @@
+name: Github actions with maven build and deploy
+on: 
+  push:
+    branches: 
+    - master
+jobs:
+  Do-the-travis-thing:
+    runs-on: ubuntu-20.04 #or ubuntu-latest
+    # services:
+    #   mysql:
+    #     image: mysql:8.0
+    #     env:
+    #       DB_DATABASE: startcode_test
+    #       DB_USER: dev
+    #       DB_PASSWORD: ax2
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup jdk 11
+        uses: actions/setup-java@v2
+        with: 
+          java-version: '11'
+          distribution: 'adopt' # openjdk see the setup java action: https://github.com/actions/setup-java
+      # - name: Set up MySQL
+      #   run: |
+      #     sudo /etc/init.d/mysql start
+      #     mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
+      # - name: setup mysql
+        # run: |
+        #   mysql -u root -e "CREATE User 'dev'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
+        #   mysql -u dev -pax2 -e "CREATE DATABASE IF NOT EXISTS startcode_test;"
+        # run: mysql -h 127.0.0.1 --port 8888 -u dev -pax2 -e 'CREATE DATABASE IF NOT EXISTS startcode_test;'
+      - name: mysql
+        uses: mirromutth/mysql-action@v1.1
+        with:
+          # host port: 3800 # Optional, default value is 3306. The port of host
+          # container port: 3307 # Optional, default value is 3306. The port of container
+          # character set server: 'utf8' # Optional, default value is 'utf8mb4'. The '--character-set-server' option for mysqld
+          # collation server: 'utf8_general_ci' # Optional, default value is 'utf8mb4_general_ci'. The '--collation-server' option for mysqld
+          mysql version: '8.0' # Optional, default value is "latest". The version of the MySQL
+          mysql database: 'startcode_test' # Optional, default value is "test". The specified database which will be create
+          # mysql root password: ${{ secrets.RootPassword }} # Required if "mysql user" is empty, default is empty. The root superuser password
+          mysql user: 'dev' # Required if "mysql root password" is empty, default is empty. The superuser for the specified database. Can use secrets, too
+          # mysql password: ${{ secrets.DatabasePassword }} # Required if "mysql user" exists. The password for the "mysql user"
+          mysql password: 'ax2'
+      - name: Cache Maven packages # cache maven repos to save time on future builds
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2 # the action searches for partial matches of the restore keys. When the action finds a partial match, the most recent cache is restored to the path directory.
+      - name: Maven verify
+        run: mvn test
+      - name: Maven deploy
+      # Some problem with Tomcat prevents deployment: Sometimes when tomcat fails to unregister the JDBC driver a thread is created called: [mysql-cj-abandoned-connection-cleanup]. If this happens Tomcat cannot undeploy the application and the following will not work.
+      # Solution: restart the tomcat container.
+        run: mvn -Dremote.user=${{ secrets.REMOTE_USER }} -Dremote.password=${{ secrets.REMOTE_PW }} tomcat7:deploy
