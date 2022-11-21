@@ -23,6 +23,7 @@ Content-Type: application/json
 
 {
   "userName": "chris",
+  "userEmail": "chris@gmail.com",
   "userPass": "test123"
 }
 
