@@ -67,7 +67,7 @@ public class UserDTOFacadeTest {
 
     @Test
     void createUserDTOTest() throws NotFoundException, API_Exception {
-        UserDTO userDTO = new UserDTO(new User("Chris", "PW"));
+        UserDTO userDTO = new UserDTO(new User("Chris", "Chris@gmail.com","PW"));
         facade.createUser(userDTO);
         assertNotNull(userDTO.getUserName());
         int actualSize = facade.getAllUsers().size();
@@ -98,6 +98,14 @@ public class UserDTOFacadeTest {
         facade.deleteUser("Oscar");
         int actualSize = facade.getAllUsers().size();
         assertEquals(1, actualSize);
+    }
+
+    @Test
+    void updateUserDTO() throws API_Exception {
+        UserDTO expected = new UserDTO(udto1.getEntity());
+        expected.setUserEmail("Testefar@test.dk");
+        UserDTO actual = facade.updateUser(expected);
+        assertEquals(expected,actual);
     }
 
     @Test

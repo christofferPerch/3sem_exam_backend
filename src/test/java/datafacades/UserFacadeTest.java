@@ -101,6 +101,13 @@ public class UserFacadeTest {
     }
 
     @Test
+    void updateUser() throws API_Exception {
+        User expected = new User(u1.getUserName(),"Testemor@test.com","PW");
+        User actual = facade.updateUser(expected);
+        assertEquals(expected,actual);
+    }
+
+    @Test
     void CantFindUserToDelete() {
         assertThrows(API_Exception.class, () -> facade.deleteUser("HEJSA"));
     }

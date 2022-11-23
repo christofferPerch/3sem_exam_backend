@@ -53,7 +53,7 @@ public class UserFacade {
 
     public User createUser(User user) throws API_Exception {
         EntityManager em = getEntityManager();
-        user.addRole(new Role("user"));
+        user.addRole(new Role("user")); //Can also be done in frontend
         try {
             em.getTransaction().begin();
             em.persist(user);
@@ -70,7 +70,7 @@ public class UserFacade {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            user.addRole(new Role("user"));
+            user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
             User u = em.merge(user);
             em.getTransaction().commit();
             return u;

@@ -10,7 +10,6 @@ import java.util.Objects;
 public class UserDTO {
 
     private String userName;
-
     private String userEmail;
     private String userPass;
 
@@ -89,6 +88,7 @@ public class UserDTO {
     public String toString() {
         return "UserDTO{" +
                 "userName='" + userName + '\'' +
+                ", userEmail='" + userEmail + '\'' +
                 ", userPass='" + userPass + '\'' +
                 ", roleList=" + roleList +
                 '}';

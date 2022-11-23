@@ -2,11 +2,12 @@
 GET http://localhost:8080/api/info
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/chris
+PUT http://localhost:8080/api/users/ole123
 Content-Type: application/json
 
 {
-  "userPass": "test"
+  "userPass": "test",
+  "userEmail": "test@test.com"
 }
 
 ### List of all users
@@ -22,7 +23,7 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-  "userName": "chris",
+  "userName": "ole123",
   "userEmail": "chris@gmail.com",
   "userPass": "test123"
 }

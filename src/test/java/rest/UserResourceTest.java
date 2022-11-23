@@ -24,6 +24,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
@@ -68,12 +69,14 @@ public class UserResourceTest {
     public void setUp() {
         EntityManager em = emf.createEntityManager();
         Role userRole = new Role("user");
-        User u1 = new User();
-        User u2 = new User();
+        u1 = new User();
+        u2 = new User();
         u1.setUserName("Oscar");
+        u1.setUserEmail("Oscar@gmail.com");
         u1.setUserPass("test");
         u1.addRole(userRole);
         u2.setUserName("Mark");
+        u2.setUserEmail("Mark@gmail.com");
         u2.setUserPass("test");
         u2.addRole(userRole);
         try {
@@ -185,5 +188,21 @@ public class UserResourceTest {
                 .delete("/users/{userName}")
                 .then()
                 .statusCode(200);
+    }
+
+    @Test
+    void updateUser() {
+        u1.setUserEmail("nytnavn@gmail.com");
+        u1.setRoleList(new ArrayList<>());
+        given()
+                .header("Content-type", ContentType.JSON)
+                .body(GSON.toJson(u1))
+                .when()
+                .put("/users/"+u1.getUserName())
+                .then()
+                .assertThat()
+                .statusCode(200)
+                .body("userName", equalTo(u1.getUserName()))
+                .body("userEmail", equalTo("nytnavn@gmail.com"));
     }
 }
