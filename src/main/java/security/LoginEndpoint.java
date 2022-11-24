@@ -51,7 +51,7 @@ public class LoginEndpoint {
 
         try {
             User user = USER_FACADE.getVerifiedUser(username, password);
-            String token = createToken(username, user.getUserEmail(), user.getRolesAsStrings());
+            String token = createToken(username, user.getRolesAsStrings());
             JsonObject responseJson = new JsonObject();
             responseJson.addProperty("username", username);
             responseJson.addProperty("token", token);
@@ -66,7 +66,7 @@ public class LoginEndpoint {
         throw new AuthenticationException("Invalid username or password! Please try again");
     }
 
-    private String createToken(String userName, String userEmail, List<String> roles) throws JOSEException {
+    private String createToken(String userName,  List<String> roles) throws JOSEException {
 
         StringBuilder res = new StringBuilder();
         for (String string : roles) {
@@ -81,7 +81,6 @@ public class LoginEndpoint {
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(userName)
                 .claim("username", userName)
-                .claim("userEmail",userEmail)
                 .claim("roles", rolesAsString)
                 .claim("issuer", issuer)
                 .issueTime(date)

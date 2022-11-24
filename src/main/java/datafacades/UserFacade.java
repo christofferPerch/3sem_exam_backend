@@ -4,6 +4,7 @@ import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
@@ -41,10 +42,15 @@ public class UserFacade {
         EntityManager em = emf.createEntityManager();
         User user;
         try {
-            user = em.find(User.class, username);
-            if (user == null || !user.verifyPassword(password)) {
-                throw new AuthenticationException("Invalid user name or password");
+            TypedQuery<User> query = em.createQuery("SELECT u FROM User u WHERE u.userName= :username", User.class);
+            query.setParameter("username", username);
+            user = query.getSingleResult();
+
+            if (/* user == null ||*/ !user.verifyPassword(password)) {
+                throw new AuthenticationException("Invalid username or password");
             }
+        } catch (NoResultException e) {
+            throw new AuthenticationException("Invalid username or password");
         } finally {
             em.close();
         }
