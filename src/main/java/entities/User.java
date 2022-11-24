@@ -8,7 +8,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import dtos.UserDTO;
 import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
@@ -33,11 +32,22 @@ public class User implements Serializable {
     @Column(name = "user_pass")
     private String userPass;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "address_id")
+    private Address address;
+
     @JoinTable(name = "user_roles", joinColumns = {
             @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
             @JoinColumn(name = "role_name", referencedColumnName = "role_name")})
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
+
+    @JoinTable(name = "user_trainingsessions", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "trainingsession_id", referencedColumnName = "trainingsession_id")})
+    @ManyToMany
+    private List<TrainingSession> trainingSessions = new ArrayList<>();
+
 
     public User() {
     }
@@ -105,9 +115,28 @@ public class User implements Serializable {
         this.userEmail = userEmail;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<TrainingSession> getTrainingSessions() {
+        return trainingSessions;
+    }
+
+    public void setTrainingSessions(List<TrainingSession> trainingSessions) {
+        this.trainingSessions = trainingSessions;
+    }
 
     public void addRole(Role userRole) {
         roleList.add(userRole);
+    }
+
+    public void addTrainingSession(TrainingSession userTrainingSession){
+        trainingSessions.add(userTrainingSession);
     }
 
     @Override
@@ -129,7 +158,9 @@ public class User implements Serializable {
                 "userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
                 ", userPass='" + userPass + '\'' +
+                ", address=" + address +
                 ", roleList=" + roleList +
+                ", trainingSessions=" + trainingSessions +
                 '}';
     }
 }
