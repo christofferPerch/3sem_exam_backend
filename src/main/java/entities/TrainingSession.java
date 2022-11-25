@@ -21,9 +21,8 @@ public class TrainingSession {
     @Column(name = "date", nullable = false)
     private Instant date;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "location_id", nullable = false)
-    private Location location;
+    @Column(name = "full_address", nullable = false)
+    private String fullAddress;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id", nullable = false)
@@ -73,12 +72,12 @@ public class TrainingSession {
         this.date = date;
     }
 
-    public Location getLocation() {
-        return location;
+    public String getFullAddress() {
+        return fullAddress;
     }
 
-    public void setLocation(Location location) {
-        this.location = location;
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
     }
 
     public Category getCategory() {
@@ -125,7 +124,7 @@ public class TrainingSession {
                 ", title='" + title + '\'' +
                 ", time='" + time + '\'' +
                 ", date=" + date +
-                ", location=" + location +
+                ", fullAddress='" + fullAddress + '\'' +
                 ", category=" + category +
                 ", maxParticipants=" + maxParticipants +
                 ", users=" + users +
