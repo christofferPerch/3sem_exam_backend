@@ -19,6 +19,17 @@ public class CityInfo {
     public CityInfo() {
     }
 
+    public CityInfo(Integer zipCode, String cityName) {
+        this.zipCode = zipCode;
+        this.cityName = cityName;
+    }
+
+    public CityInfo(Integer zipCode, String cityName, List<Address> addresses) {
+        this.zipCode = zipCode;
+        this.cityName = cityName;
+        this.addresses = addresses;
+    }
+
     public Integer getZipCode() {
         return zipCode;
     }
