@@ -1,8 +1,6 @@
 package dtos;
 
-import entities.Role;
 import entities.User;
-import org.mindrot.jbcrypt.BCrypt;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
