@@ -117,14 +117,8 @@ public class TrainingSession {
         this.id = id;
         this.title = title;
         this.time = time;
-        java.util.Date dt = new java.util.Date();
 
-        java.text.SimpleDateFormat sdf =
-                new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
-        this.date = Date.valueOf(sdf.format(dt));
-        System.out.println(Date.valueOf(sdf.format(dt)));
+        this.date = date;
         this.fullAddress = fullAddress;
         this.category = category;
         this.maxParticipants = maxParticipants;
