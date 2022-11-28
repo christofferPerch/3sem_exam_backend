@@ -4,6 +4,7 @@ import businessfacades.TrainingSessionDTOFacade;
 import businessfacades.UserDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import dtos.TrainingSessionDTO;
 import dtos.UserDTO;
 
@@ -78,6 +79,13 @@ public class UserResource {
         TrainingSessionDTO trainingSessionDTO = GSON.fromJson(content, TrainingSessionDTO.class);
         TrainingSessionDTO newTrainingSessionDTO = trainingFacade.createTrainingSession(trainingSessionDTO);
         return Response.ok().entity(GSON.toJson(newTrainingSessionDTO)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    @GET
+    @Path("/email/{trainingSessionId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response showUsers(@PathParam("trainingSessionId") int trainingSessionId) throws API_Exception, UnirestException {
+        return Response.ok().entity(GSON.toJson(trainingFacade.sendEmailToAllUsers(trainingSessionId))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
 }
