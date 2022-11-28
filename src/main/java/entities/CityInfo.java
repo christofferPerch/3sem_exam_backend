@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@NamedQuery(name = "CityInfo.deleteAllRows", query = "DELETE from CityInfo")
 @Table(name = "cityinfo")
 public class CityInfo {
     @Id
@@ -24,11 +25,6 @@ public class CityInfo {
         this.cityName = cityName;
     }
 
-    public CityInfo(Integer zipCode, String cityName, List<Address> addresses) {
-        this.zipCode = zipCode;
-        this.cityName = cityName;
-        this.addresses = addresses;
-    }
 
     public Integer getZipCode() {
         return zipCode;

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@NamedQuery(name = "Address.deleteAllRows", query = "DELETE from Address")
 @Table(name = "address")
 public class Address {
     @Id
@@ -18,10 +19,15 @@ public class Address {
     @JoinColumn(name = "zipcode", nullable = false)
     private CityInfo zipcode;
 
-    @OneToMany(mappedBy = "address")
+    @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
     private List<User> users = new ArrayList<>();
 
     public Address() {
+    }
+
+    public Address(String streetAddress, CityInfo zipcode) {
+        this.streetAddress = streetAddress;
+        this.zipcode = zipcode;
     }
 
     public Integer getId() {

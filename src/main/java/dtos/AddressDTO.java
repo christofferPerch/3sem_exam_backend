@@ -10,17 +10,18 @@ import java.util.Objects;
 
 public class AddressDTO {
 
-    private Integer id;
+    private int id;
     private String streetAddress;
     private CityInfoDTO cityInfo;
-    private List<User> users = new ArrayList<>();
+    private List<User> users;
 
-    public AddressDTO(Integer id, String streetAddress, CityInfoDTO cityInfo, List<User> users) {
+    public AddressDTO(Integer id, String streetAddress, CityInfoDTO cityInfo) {
         this.id = id;
         this.streetAddress = streetAddress;
         this.cityInfo = cityInfo;
-        this.users = users;
+        //USERS
     }
+
 
     public AddressDTO(Address address){
         if(address.getId() != null && address.getId() != 0){
@@ -28,7 +29,17 @@ public class AddressDTO {
         }
         this.streetAddress = address.getStreetAddress();
         this.cityInfo = new CityInfoDTO(address.getZipcode());
-        this.users = address.getUsers(); //Might have to be changed
+        //this.users = address.getUsers();
+    }
+
+    public Address getEntity(){
+        Address address = new Address();
+        if (this.id != 0) {
+            address.setId(id);
+        }
+        address.setStreetAddress(streetAddress);
+        address.setZipcode(this.cityInfo.getEntity());
+        return address;
     }
 
     public static List<AddressDTO> getAddressDTOs(List<Address> addresses){
@@ -37,22 +48,11 @@ public class AddressDTO {
         return addressDTOs;
     }
 
-    public Address getEntity(){
-        Address address = new Address();
-        if(this.id != 0){
-            address.setId(id);
-        }
-        address.setStreetAddress(streetAddress);
-        address.setZipcode(this.cityInfo.getEntity());
-        //Maybe return users as well
-        return address;
-    }
-
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -85,12 +85,12 @@ public class AddressDTO {
         if (this == o) return true;
         if (!(o instanceof AddressDTO)) return false;
         AddressDTO that = (AddressDTO) o;
-        return id.equals(that.id);
+        return getId() == that.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(getId());
     }
 
     @Override

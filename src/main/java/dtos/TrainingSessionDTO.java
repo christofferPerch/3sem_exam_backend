@@ -6,6 +6,7 @@ import entities.User;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +14,7 @@ public class TrainingSessionDTO {
     private Integer id;
     private String title;
     private String time;
-    private Instant date;
+    private Date date;
     private String fullAddress;
     private Category category;
     private Integer maxParticipants;
@@ -75,11 +76,11 @@ public class TrainingSessionDTO {
         this.time = time;
     }
 
-    public Instant getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

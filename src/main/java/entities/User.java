@@ -32,7 +32,7 @@ public class User implements Serializable {
     @Column(name = "user_pass")
     private String userPass;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne( fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
     private Address address;
 
@@ -67,6 +67,22 @@ public class User implements Serializable {
         this.userName = userName;
         this.userEmail = userEmail;
         this.userPass = BCrypt.hashpw(userPass, BCrypt.gensalt());
+    }
+
+    public User(String userName, String userEmail, String userPass, Address address) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPass = userPass;
+        this.address = address;
+    }
+
+    public User(String userName, String userEmail, String userPass, Address address, List<Role> roleList, List<TrainingSession> trainingSessions) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPass = userPass;
+        this.address = address;
+        this.roleList = roleList;
+        this.trainingSessions = trainingSessions;
     }
 
     public List<String> getRolesAsStrings() {

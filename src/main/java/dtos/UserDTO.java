@@ -25,7 +25,6 @@ public class UserDTO {
         this.userEmail = user.getUserEmail();
         this.userPass = user.getUserPass();
         this.address = new AddressDTO(user.getAddress());
-        //Add training sessions
         this.roleList = user.getRolesAsStrings();
     }
 
@@ -37,7 +36,6 @@ public class UserDTO {
         user.setUserEmail(this.userEmail);
         user.setUserPass(this.userPass);
         user.setAddress(this.address.getEntity());
-        //Add training sessions
         user.getRolesAsStrings();
         return user;
     }

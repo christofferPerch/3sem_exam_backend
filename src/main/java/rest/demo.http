@@ -29,6 +29,6 @@ Content-Type: application/json
 }
 
 ### Deletes an existing person
-DELETE http://localhost:8080/api/users/chris
+DELETE http://localhost:8080/api/users/user
 Content-Type: application/json
 

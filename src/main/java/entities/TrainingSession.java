@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.*;
 
 @Entity
+@NamedQuery(name = "TrainingSession.deleteAllRows", query = "DELETE from TrainingSession ")
 @Table(name = "trainingsession")
 public class TrainingSession {
     @Id
@@ -19,7 +20,7 @@ public class TrainingSession {
     private String time;
 
     @Column(name = "date", nullable = false)
-    private Instant date;
+    private Date date;
 
     @Column(name = "full_address", nullable = false)
     private String fullAddress;
@@ -64,11 +65,11 @@ public class TrainingSession {
         this.time = time;
     }
 
-    public Instant getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

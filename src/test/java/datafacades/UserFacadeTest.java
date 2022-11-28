@@ -2,6 +2,8 @@ package datafacades;
 
 import datafacades.UserFacade;
 import dtos.UserDTO;
+import entities.Address;
+import entities.CityInfo;
 import entities.Role;
 import entities.User;
 import errorhandling.API_Exception;
@@ -20,6 +22,8 @@ public class UserFacadeTest {
     private static UserFacade facade;
 
     User u1, u2;
+    CityInfo c1,c2;
+    Address a1,a2;
 
     public UserFacadeTest() {
     }
@@ -41,17 +45,32 @@ public class UserFacadeTest {
         Role userRole = new Role("user");
         u1 = new User();
         u2 = new User();
+        c1 = new CityInfo(2750,"Ballerup");
+        c2 = new CityInfo(2800,"Lyngby");
+        a1 = new Address("sankt jacobsvej",c1);
+        a2 = new Address("nørgardsvej",c2);
         u1.setUserName("Oscar");
         u1.setUserPass("test");
+        u1.setUserEmail("Oscar@gmail.com");
         u1.addRole(userRole);
+        u1.setAddress(a1);
+
         u2.setUserName("Mark");
         u2.setUserPass("test");
+        u2.setUserEmail("Mark@gmail.com");
         u2.addRole(userRole);
+        u2.setAddress(a2);
         try {
             em.getTransaction().begin();
             em.createNamedQuery("User.deleteAllRows").executeUpdate();
             em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             em.persist(userRole);
+            em.persist(c1);
+            em.persist(c2);
+            em.persist(a1);
+            em.persist(a2);
             em.persist(u1);
             em.persist(u2);
             em.getTransaction().commit();
