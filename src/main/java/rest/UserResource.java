@@ -3,7 +3,9 @@ package rest;
 import businessfacades.UserDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.TrainingSessionDTO;
 import dtos.UserDTO;
+import entities.TrainingSession;
 import entities.User;
 
 import java.nio.charset.StandardCharsets;
@@ -71,4 +73,7 @@ public class UserResource {
         UserDTO deletedUser = facade.deleteUser(userName);
         return Response.ok().entity(GSON.toJson(deletedUser)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
+
+
+
 }

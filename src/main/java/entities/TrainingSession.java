@@ -112,6 +112,17 @@ public class TrainingSession {
         return getId().equals(that.getId());
     }
 
+    public TrainingSession(Integer id, String title, String time, Instant date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
+        this.id = id;
+        this.title = title;
+        this.time = time;
+        this.date = date;
+        this.fullAddress = fullAddress;
+        this.category = category;
+        this.maxParticipants = maxParticipants;
+        this.users = users;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(getId());

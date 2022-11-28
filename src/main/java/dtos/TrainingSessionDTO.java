@@ -1,8 +1,10 @@
 package dtos;
 
+import datafacades.UserFacade;
 import entities.Category;
 import entities.TrainingSession;
 import entities.User;
+import errorhandling.API_Exception;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -114,6 +116,7 @@ public class TrainingSessionDTO {
     public void setUsers(List<User> users) {
         this.users = users;
     }
+
 
     @Override
     public boolean equals(Object o) {

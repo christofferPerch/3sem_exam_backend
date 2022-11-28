@@ -1,6 +1,8 @@
 package datafacades;
 
+import entities.Category;
 import entities.Role;
+import entities.TrainingSession;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -9,11 +11,11 @@ import javax.persistence.TypedQuery;
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
+
+import java.time.Instant;
 import java.util.List;
 
-/**
- * @author lam@cphbusiness.dk
- */
+
 public class UserFacade {
 
     private static EntityManagerFactory emf;
@@ -125,4 +127,5 @@ public class UserFacade {
         }
         return user;
     }
+
 }
