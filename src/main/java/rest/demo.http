@@ -2,16 +2,27 @@
 GET http://localhost:8080/api/info
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/ole123
+PUT http://localhost:8080/api/users/usermor
 Content-Type: application/json
 
 {
-  "userPass": "test",
-  "userEmail": "test@test.com"
+  "userEmail": "usermor@gmail.com",
+  "userPass": "test123",
+  "address": {
+    "streetAddress": "Nørgaardsvej 22",
+    "cityInfo": {
+      "zipCode": 2800,
+      "cityName": "Kongens Lyngby"
+    }
+  }
 }
 
 ### List of all users
 GET http://localhost:8080/api/users/all
+Content-Type: application/json
+
+### Get user by username
+GET http://localhost:8080/api/users/usermor
 Content-Type: application/json
 
 ### System greets the admin in this case, if he's logged in
@@ -23,9 +34,16 @@ POST http://localhost:8080/api/users
 Content-Type: application/json
 
 {
-  "userName": "ole123",
-  "userEmail": "chris@gmail.com",
-  "userPass": "test123"
+  "userName": "userfar",
+  "userEmail": "userfar@gmail.com",
+  "userPass": "test123",
+  "address": {
+    "streetAddress": "Nørgaardsvej 10",
+    "cityInfo": {
+      "zipCode": 2800,
+      "cityName": "Kongens Lyngby"
+    }
+  }
 }
 
 ### Deletes an existing person

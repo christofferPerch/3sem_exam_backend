@@ -1,5 +1,7 @@
 package datafacades;
 
+import entities.Address;
+import entities.CityInfo;
 import entities.Role;
 import entities.User;
 import javax.persistence.EntityManager;
@@ -51,9 +53,11 @@ public class UserFacade {
         return user;
     }
 
+
     public User createUser(User user) throws API_Exception {
         EntityManager em = getEntityManager();
         user.addRole(new Role("user")); //Can also be done in frontend
+
         try {
             em.getTransaction().begin();
             em.persist(user);
@@ -65,6 +69,7 @@ public class UserFacade {
         }
         return user;
     }
+
 
     public User updateUser(User user) throws API_Exception {
         EntityManager em = getEntityManager();
@@ -80,6 +85,7 @@ public class UserFacade {
             em.close();
         }
     }
+
 
     public User getUserByUserName(String userName) throws API_Exception {
         EntityManager em = getEntityManager();
@@ -120,11 +126,30 @@ public class UserFacade {
         return user;
     }
 
+    public void deleteAddress(int addressId) throws API_Exception {
+        EntityManager em = getEntityManager();
+        Address address = em.find(Address.class, addressId);
+
+        try {
+            em.getTransaction().begin();
+            em.remove(address);
+            em.getTransaction().commit();
+        } catch (Exception e) {
+            if (address == null) {
+                throw new API_Exception("Can't find a user with the address: " + address,400,e);
+            }
+        } finally {
+            em.close();
+        }
+    }
+
     public static void main(String[] args) throws API_Exception {
         emf = EMF_Creator.createEntityManagerFactory();
         UserFacade uf = getUserFacade(emf);
 //        System.out.println(uf.getAllUsers());
 //        System.out.println(uf.getUserByUserName("user"));
-        System.out.println(uf.deleteUser("test"));
+//        System.out.println(uf.deleteUser("test"));
+        uf.deleteAddress(11);
+
     }
 }
