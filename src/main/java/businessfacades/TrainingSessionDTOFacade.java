@@ -1,23 +1,29 @@
 package businessfacades;
 
+import com.google.gson.JsonElement;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import datafacades.TrainingSessionFacade;
 import dtos.TrainingSessionDTO;
 import dtos.UserDTO;
+import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
-import errorhandling.NotFoundException;
-import datafacades.UserFacade;
-import security.errorhandling.AuthenticationException;
+import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
-import java.util.List;
 
 public class TrainingSessionDTOFacade {
+    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
+    private UserDTOFacade userFacade = UserDTOFacade.getInstance(EMF);
     private static TrainingSessionDTOFacade instance;
     private static TrainingSessionFacade trainingSessionFacade;
 
-    private TrainingSessionDTOFacade() {}
+    private TrainingSessionDTOFacade() {
+    }
 
     public static TrainingSessionDTOFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
@@ -29,6 +35,25 @@ public class TrainingSessionDTOFacade {
 
     public TrainingSessionDTO createTrainingSession(TrainingSessionDTO trainingSessionDTO) throws API_Exception {
         return new TrainingSessionDTO(trainingSessionFacade.createTrainingSession(trainingSessionDTO.getEntity()));
+    }
+
+    public String sendEmailToAllUsers(int trainingSessionId) throws UnirestException, API_Exception {
+        for (User user : trainingSessionFacade.getTrainingSession(trainingSessionId).getUsers()) {
+            for (TrainingSession t : user.getTrainingSessions()) {
+                if(t.getId().equals(trainingSessionId)){
+                    String YOUR_DOMAIN_NAME = "sandbox06d065eea4cc4b92bbc153a5d24516e9.mailgun.org";
+                    HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + YOUR_DOMAIN_NAME + "/messages")
+                            .basicAuth("api", "433fc8862f7dd5ad0b1333f6697e40a5-69210cfc-66acf477")
+                            .queryString("from", "You have an upcoming training session! rehman@lyngbys.me")
+                            .queryString("to", user.getUserEmail())
+                            .queryString("subject", "You have an upcoming training session!")
+                            .queryString("text", "Training session starting at " +t.getTime() + " on date " + t.getTime())
+                            .asJson();
+                    System.out.println(user.getUserEmail());
+                }
+            }
+        }
+        return "Done";
     }
 
 }

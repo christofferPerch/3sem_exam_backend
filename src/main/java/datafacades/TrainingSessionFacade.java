@@ -52,4 +52,17 @@ public class TrainingSessionFacade {
         return trainingSession;
     }
 
+    public TrainingSession getTrainingSession(int id) throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<TrainingSession> query = em.createQuery("SELECT t FROM TrainingSession t where t.id=:id", TrainingSession.class);
+            query.setParameter("id", id);
+            return query.getSingleResult();
+        } catch (Exception e){
+            throw new API_Exception("Can't find any users in the system",404,e);
+        }
+    }
+
+
+
 }
