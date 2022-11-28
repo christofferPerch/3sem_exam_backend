@@ -9,11 +9,10 @@ import java.util.Objects;
 
 public class CityInfoDTO {
 
-
-    private Integer zipCode;
+    private int zipCode;
     private String cityName;
 
-    public CityInfoDTO(Integer zipCode, String cityName) {
+    public CityInfoDTO(int zipCode, String cityName) {
         this.zipCode = zipCode;
         this.cityName = cityName;
     }
@@ -33,11 +32,11 @@ public class CityInfoDTO {
         return new CityInfo(this.zipCode,this.cityName);
     }
 
-    public Integer getZipCode() {
+    public int getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(Integer zipCode) {
+    public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -54,7 +53,7 @@ public class CityInfoDTO {
         if (this == o) return true;
         if (!(o instanceof CityInfoDTO)) return false;
         CityInfoDTO that = (CityInfoDTO) o;
-        return getZipCode().equals(that.getZipCode());
+        return getZipCode() == that.getZipCode();
     }
 
     @Override

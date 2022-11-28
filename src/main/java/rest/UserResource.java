@@ -39,6 +39,7 @@ public class UserResource {
 
     @GET
     @Path("/all")
+    @Produces({MediaType.APPLICATION_JSON})
     public Response getAllUsers() throws API_Exception {
         return Response.ok().entity(GSON.toJson(facade.getAllUsers())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }

@@ -7,13 +7,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import errorhandling.API_Exception;
-import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
+import utils.EMF_Creator;
+
 import java.util.List;
 
-/**
- * @author lam@cphbusiness.dk
- */
 public class UserFacade {
 
     private static EntityManagerFactory emf;
@@ -22,10 +20,6 @@ public class UserFacade {
     private UserFacade() {
     }
 
-    /**
-     * @param _emf
-     * @return the instance of this facade.
-     */
     public static UserFacade getUserFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -104,7 +98,7 @@ public class UserFacade {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
             return query.getResultList();
         } catch (Exception e){
-            throw new API_Exception("Can't find any users in the system",404,e);
+            throw new API_Exception("Can't find any users in the system", 404, e);
         }
     }
 
@@ -124,5 +118,13 @@ public class UserFacade {
             em.close();
         }
         return user;
+    }
+
+    public static void main(String[] args) throws API_Exception {
+        emf = EMF_Creator.createEntityManagerFactory();
+        UserFacade uf = getUserFacade(emf);
+//        System.out.println(uf.getAllUsers());
+//        System.out.println(uf.getUserByUserName("user"));
+        System.out.println(uf.deleteUser("test"));
     }
 }
