@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.time.Instant;
 import java.util.*;
 
@@ -19,7 +20,7 @@ public class TrainingSession {
     private String time;
 
     @Column(name = "date", nullable = false)
-    private Instant date;
+    private Date date;
 
     @Column(name = "full_address", nullable = false)
     private String fullAddress;
@@ -64,11 +65,11 @@ public class TrainingSession {
         this.time = time;
     }
 
-    public Instant getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -112,11 +113,18 @@ public class TrainingSession {
         return getId().equals(that.getId());
     }
 
-    public TrainingSession(Integer id, String title, String time, Instant date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
+    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
         this.id = id;
         this.title = title;
         this.time = time;
-        this.date = date;
+        java.util.Date dt = new java.util.Date();
+
+        java.text.SimpleDateFormat sdf =
+                new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+
+        this.date = Date.valueOf(sdf.format(dt));
+        System.out.println(Date.valueOf(sdf.format(dt)));
         this.fullAddress = fullAddress;
         this.category = category;
         this.maxParticipants = maxParticipants;

@@ -6,6 +6,7 @@ import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
 
+import java.sql.Date;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class TrainingSessionDTO {
     private Integer id;
     private String title;
     private String time;
-    private Instant date;
+    private Date date;
     private String fullAddress;
     private Category category;
     private Integer maxParticipants;
@@ -77,11 +78,11 @@ public class TrainingSessionDTO {
         this.time = time;
     }
 
-    public Instant getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Instant date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
