@@ -28,6 +28,13 @@ public class UserDTO {
         this.roleList = user.getRolesAsStrings();
     }
 
+    public UserDTO(String userName, String userEmail, String userPass, AddressDTO address) {
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.userPass = userPass;
+        this.address = address;
+    }
+
     public User getEntity(){
         User user = new User();
         if(this.userName != null){

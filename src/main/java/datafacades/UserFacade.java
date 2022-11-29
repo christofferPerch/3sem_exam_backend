@@ -1,17 +1,19 @@
 package datafacades;
 
+import dtos.UserDTO;
 import entities.Address;
 import entities.CityInfo;
 import entities.Role;
 import entities.User;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+
+import javax.persistence.*;
+
 import errorhandling.API_Exception;
+import org.mindrot.jbcrypt.BCrypt;
 import security.errorhandling.AuthenticationException;
 import utils.EMF_Creator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserFacade {
@@ -76,6 +78,9 @@ public class UserFacade {
         try {
             em.getTransaction().begin();
             user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
+            Address a = em.find(Address.class, user.getAddress().getStreetAddress());
+            user.getAddress().setStreetAddress(a.getStreetAddress());
+
             User u = em.merge(user);
             em.getTransaction().commit();
             return u;
@@ -86,14 +91,58 @@ public class UserFacade {
         }
     }
 
+//    public User updateUser(User user) throws EntityNotFoundException {
+//        UserDTO userDTO = new UserDTO(user);
+//        user = new User(userDTO.getUserName(), userDTO.getUserEmail(), userDTO.getUserPass(), userDTO.getAddress().getEntity());
+//        EntityManager em = getEntityManager();
+//        User ufromdb = em.find(User.class, userDTO.getUserName());
+//        if (user.getUserName() == null)
+//            throw new javax.persistence.EntityNotFoundException("No such Person with username: " + user.getUserName());
+//        em.getTransaction().begin();
+//        ufromdb = em.merge(user);
+//        em.getTransaction().commit();
+//        return user;
+//    }
+
+
+//    public User updateUser(User user) throws API_Exception {
+//        EntityManager em = getEntityManager();
+//        user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
+//        em.find(User.class, user.getUserName());
+//
+//        if (user.getUserEmail().length() != 0) {
+//            user.setUserEmail(user.getUserEmail());
+//        }
+//        if (user.getUserPass().length() != 0) {
+//            user.setUserPass(BCrypt.hashpw(user.getUserPass(), BCrypt.gensalt()));
+//        }
+//
+//        if (user.getAddress().getStreetAddress().length() != 0) {
+//            user.getAddress().setStreetAddress(user.getAddress().getStreetAddress());
+//        }
+//
+//        try {
+//
+//            em.getTransaction().begin();
+//            em.merge(user);
+//            em.getTransaction().commit();
+//            return user;
+//        } catch (Exception e) {
+//            throw new API_Exception("Can't find a user with the username: " + user.getUserName(), 400, e);
+//        } finally {
+//            em.close();
+//        }
+//
+//    }
+
 
     public User getUserByUserName(String userName) throws API_Exception {
         EntityManager em = getEntityManager();
-        try{
+        try {
             User u = em.find(User.class, userName);
             return u;
-        } catch (Exception e){
-            throw new API_Exception("Can't find a user with the username: " + userName,404,e);
+        } catch (Exception e) {
+            throw new API_Exception("Can't find a user with the username: " + userName, 404, e);
         }
 
     }
@@ -103,7 +152,7 @@ public class UserFacade {
         try {
             TypedQuery<User> query = em.createQuery("SELECT u FROM User u", User.class);
             return query.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new API_Exception("Can't find any users in the system", 404, e);
         }
     }
@@ -118,7 +167,7 @@ public class UserFacade {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (user == null) {
-                throw new API_Exception("Can't find a user with the username: " + userName,400,e);
+                throw new API_Exception("Can't find a user with the username: " + userName, 400, e);
             }
         } finally {
             em.close();
@@ -136,7 +185,7 @@ public class UserFacade {
             em.getTransaction().commit();
         } catch (Exception e) {
             if (address == null) {
-                throw new API_Exception("Can't find a user with the address: " + address,400,e);
+                throw new API_Exception("Can't find a user with the address: " + address, 400, e);
             }
         } finally {
             em.close();

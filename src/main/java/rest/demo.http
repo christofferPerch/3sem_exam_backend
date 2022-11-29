@@ -6,10 +6,10 @@ PUT http://localhost:8080/api/users/usermor
 Content-Type: application/json
 
 {
-  "userEmail": "usermor@gmail.com",
+  "userEmail": "usermorr@gmail.com",
   "userPass": "test123",
   "address": {
-    "streetAddress": "Nørgaardsvej 22",
+    "streetAddress": "Nørgaardsvej 39",
     "cityInfo": {
       "zipCode": 2800,
       "cityName": "Kongens Lyngby"
