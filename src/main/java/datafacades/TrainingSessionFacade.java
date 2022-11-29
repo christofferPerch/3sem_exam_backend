@@ -45,7 +45,7 @@ public class TrainingSessionFacade {
             em.persist(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {
-            throw new API_Exception("There's already a user with the username: " + trainingSession.getId() + " in the system!");
+            throw new API_Exception("This is an error " + trainingSession.getId() + "!");
         } finally {
             em.close();
         }

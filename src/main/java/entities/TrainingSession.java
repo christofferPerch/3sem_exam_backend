@@ -1,8 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import java.sql.Date;
-import java.time.Instant;
 import java.util.*;
 
 @Entity

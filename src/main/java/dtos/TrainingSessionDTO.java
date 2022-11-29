@@ -5,21 +5,16 @@ import entities.Category;
 import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
-
-import java.sql.Date;
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class TrainingSessionDTO {
-    private Integer id;
+    private int id;
     private String title;
     private String time;
     private Date date;
     private String fullAddress;
     private Category category;
-    private Integer maxParticipants;
+    private int maxParticipants;
 
     private List<User> users;
 
@@ -36,7 +31,7 @@ public class TrainingSessionDTO {
 
     public TrainingSession getEntity() {
         TrainingSession trainingSession = new TrainingSession();
-        if (this.id != null) {
+        if (this.id > 0) {
             trainingSession.setId(this.id);
         }
         trainingSession.setTitle(this.title);
@@ -54,11 +49,11 @@ public class TrainingSessionDTO {
         return trainingSessionDTOS;
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -102,11 +97,11 @@ public class TrainingSessionDTO {
         this.category = category;
     }
 
-    public Integer getMaxParticipants() {
+    public int getMaxParticipants() {
         return maxParticipants;
     }
 
-    public void setMaxParticipants(Integer maxParticipants) {
+    public void setMaxParticipants(int maxParticipants) {
         this.maxParticipants = maxParticipants;
     }
 
@@ -118,18 +113,17 @@ public class TrainingSessionDTO {
         this.users = users;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof TrainingSessionDTO)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         TrainingSessionDTO that = (TrainingSessionDTO) o;
-        return getId().equals(that.getId());
+        return id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
     }
 
     @Override
