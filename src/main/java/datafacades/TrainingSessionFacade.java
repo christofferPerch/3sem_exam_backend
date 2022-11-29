@@ -4,10 +4,9 @@ import entities.Category;
 import entities.Role;
 import entities.TrainingSession;
 import entities.User;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+
+import javax.persistence.*;
+
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
@@ -42,6 +41,10 @@ public class TrainingSessionFacade {
         //TrainingSession trainingSession = new TrainingSession(id, title, time, date,fullAddress, category, maxParticipants, users);
         try {
             em.getTransaction().begin();
+            em.find(Category.class,4);
+//            Category test = em.find(Category.class, 4);
+//            Query query = em.createQuery("select c from Category c where c.categoryName=:name",Category.class);
+//            query.setParameter("name", trainingSession.getCategory().getCategoryName());
             em.persist(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {

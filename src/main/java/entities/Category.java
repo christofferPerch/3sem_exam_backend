@@ -20,6 +20,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -57,12 +61,12 @@ public class Category {
         return Objects.hash(getId());
     }
 
-    @Override
-    public String toString() {
-        return "Category{" +
-                "id=" + id +
-                ", categoryName='" + categoryName + '\'' +
-                ", trainingSessions=" + trainingSessions +
-                '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Category{" +
+//                "id=" + id +
+//                ", categoryName='" + categoryName + '\'' +
+//                ", trainingSessions=" + trainingSessions +
+//                '}';
+//    }
 }
