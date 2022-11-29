@@ -73,67 +73,42 @@ public class UserFacade {
     }
 
 
-    public User updateUser(User user) throws API_Exception {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
-            user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
-            Address a = em.find(Address.class, user.getAddress().getStreetAddress());
-            user.getAddress().setStreetAddress(a.getStreetAddress());
-
-            User u = em.merge(user);
-            em.getTransaction().commit();
-            return u;
-        } catch (Exception e) {
-            throw new API_Exception("Can't find a user with the username: "+user.getUserName(),400,e);
-        } finally {
-            em.close();
-        }
-    }
-
-//    public User updateUser(User user) throws EntityNotFoundException {
-//        UserDTO userDTO = new UserDTO(user);
-//        user = new User(userDTO.getUserName(), userDTO.getUserEmail(), userDTO.getUserPass(), userDTO.getAddress().getEntity());
-//        EntityManager em = getEntityManager();
-//        User ufromdb = em.find(User.class, userDTO.getUserName());
-//        if (user.getUserName() == null)
-//            throw new javax.persistence.EntityNotFoundException("No such Person with username: " + user.getUserName());
-//        em.getTransaction().begin();
-//        ufromdb = em.merge(user);
-//        em.getTransaction().commit();
-//        return user;
-//    }
-
-
 //    public User updateUser(User user) throws API_Exception {
 //        EntityManager em = getEntityManager();
-//        user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
-//        em.find(User.class, user.getUserName());
-//
-//        if (user.getUserEmail().length() != 0) {
-//            user.setUserEmail(user.getUserEmail());
-//        }
-//        if (user.getUserPass().length() != 0) {
-//            user.setUserPass(BCrypt.hashpw(user.getUserPass(), BCrypt.gensalt()));
-//        }
-//
-//        if (user.getAddress().getStreetAddress().length() != 0) {
-//            user.getAddress().setStreetAddress(user.getAddress().getStreetAddress());
-//        }
-//
 //        try {
-//
 //            em.getTransaction().begin();
+//            user.addRole(new Role("user")); //Could make a new method where you can assign new roles, otherwise it's always "user"
 //            em.merge(user);
 //            em.getTransaction().commit();
 //            return user;
 //        } catch (Exception e) {
-//            throw new API_Exception("Can't find a user with the username: " + user.getUserName(), 400, e);
+//            throw new API_Exception("Can't find a user with the username: "+user.getUserName(),400,e);
 //        } finally {
 //            em.close();
 //        }
-//
 //    }
+
+
+    public User updateUser(User user) throws API_Exception {
+        EntityManager em = getEntityManager();
+        user.addRole(new Role("user"));     //Could make a new method where you can assign new roles, otherwise it's always "user"
+        em.find(User.class, user.getUserName());
+        if (user.getAddress().getStreetAddress().length() != 0) {
+            user.getAddress().setStreetAddress(user.getAddress().getStreetAddress());      // Should work in FrontEnd if you don't update ur address.
+        }
+
+        try {
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+            return user;
+        } catch (Exception e) {
+            throw new API_Exception("Can't find a user with the username: " + user.getUserName(), 400, e);
+        } finally {
+            em.close();
+        }
+
+    }
 
 
     public User getUserByUserName(String userName) throws API_Exception {
@@ -175,22 +150,22 @@ public class UserFacade {
         return user;
     }
 
-    public void deleteAddress(int addressId) throws API_Exception {
-        EntityManager em = getEntityManager();
-        Address address = em.find(Address.class, addressId);
-
-        try {
-            em.getTransaction().begin();
-            em.remove(address);
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            if (address == null) {
-                throw new API_Exception("Can't find a user with the address: " + address, 400, e);
-            }
-        } finally {
-            em.close();
-        }
-    }
+//    public void deleteAddress(int addressId) throws API_Exception {
+//        EntityManager em = getEntityManager();
+//        Address address = em.find(Address.class, addressId);
+//
+//        try {
+//            em.getTransaction().begin();
+//            em.remove(address);
+//            em.getTransaction().commit();
+//        } catch (Exception e) {
+//            if (address == null) {
+//                throw new API_Exception("Can't find a user with the address: " + address, 400, e);
+//            }
+//        } finally {
+//            em.close();
+//        }
+//    }
 
     public static void main(String[] args) throws API_Exception {
         emf = EMF_Creator.createEntityManagerFactory();
@@ -198,7 +173,7 @@ public class UserFacade {
 //        System.out.println(uf.getAllUsers());
 //        System.out.println(uf.getUserByUserName("user"));
 //        System.out.println(uf.deleteUser("test"));
-        uf.deleteAddress(11);
+//        uf.deleteAddress(11);
 
     }
 }

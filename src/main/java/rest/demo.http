@@ -2,14 +2,14 @@
 GET http://localhost:8080/api/info
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/usermor
+PUT http://localhost:8080/api/users/userfar
 Content-Type: application/json
 
 {
-  "userEmail": "usermorr@gmail.com",
-  "userPass": "test123",
+  "userEmail": "userfarfar@gmail.com",
   "address": {
-    "streetAddress": "Nørgaardsvej 39",
+    "id": 8,
+    "streetAddress": "Zin 2",
     "cityInfo": {
       "zipCode": 2800,
       "cityName": "Kongens Lyngby"
