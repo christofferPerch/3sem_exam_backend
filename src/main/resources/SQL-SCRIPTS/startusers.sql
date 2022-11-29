@@ -7,3 +7,8 @@ VALUES ('admin', 'personaltrainer@gmail.com', 'test123', 1);
 
 INSERT INTO user
 VALUES ('user', 'testuser@gmail.com', 'test123', 2);
+
+INSERT INTO user_roles
+VALUES ('admin', 'admin');
+INSERT INTO user_roles
+VALUES ('user', 'user');
