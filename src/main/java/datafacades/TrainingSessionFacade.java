@@ -12,6 +12,7 @@ import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,10 +42,18 @@ public class TrainingSessionFacade {
         //TrainingSession trainingSession = new TrainingSession(id, title, time, date,fullAddress, category, maxParticipants, users);
         try {
             em.getTransaction().begin();
-            em.find(Category.class,4);
+            em.merge(trainingSession.getCategory());
+            System.out.println(trainingSession);
+//            List<TrainingSession> tslist = new ArrayList<>();
+//                    tslist.add(trainingSession);
+//            trainingSession.getCategory().setTrainingSessions(tslist);
+            Category newcat = em.find(Category.class,5);
+            trainingSession.setCategory(newcat);
+//            System.out.println(category);
 //            Category test = em.find(Category.class, 4);
 //            Query query = em.createQuery("select c from Category c where c.categoryName=:name",Category.class);
 //            query.setParameter("name", trainingSession.getCategory().getCategoryName());
+//            trainingSession.setCategory(category);
             em.persist(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {
@@ -67,5 +76,16 @@ public class TrainingSessionFacade {
     }
 
 
+    public void deleteTrainingSession(int id) throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            TrainingSession tstoRemove = em.find(TrainingSession.class,id);
+            em.remove(tstoRemove);
+            em.getTransaction().commit();
+        } catch (Exception e){
+            throw new API_Exception("Can't find any training sessions in the system with that id",404,e);
+        }
+    }
 
 }
