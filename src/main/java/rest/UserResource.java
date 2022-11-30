@@ -3,6 +3,7 @@ package rest;
 import businessfacades.UserDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import datafacades.UserFacade;
 import dtos.UserDTO;
 import entities.User;
 
@@ -28,6 +29,7 @@ public class UserResource {
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private UserDTOFacade facade = UserDTOFacade.getInstance(EMF);
+    private UserFacade userFacade = UserFacade.getUserFacade(EMF);
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
     @GET
@@ -72,4 +74,15 @@ public class UserResource {
         UserDTO deletedUser = facade.deleteUser(userName);
         return Response.ok().entity(GSON.toJson(deletedUser)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
+
+    @POST
+    @Path("/add/{userName}/{trainingSessionId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response addUserToTrainingSession(@PathParam("userName") String userName,
+                                             @PathParam("trainingSessionId") int id) throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.addUserToTrainingSession(userName,id))).
+                type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
 }

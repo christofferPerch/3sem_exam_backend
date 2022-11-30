@@ -15,7 +15,7 @@ public class UserDTO {
     private String userEmail;
     private String userPass;
     private AddressDTO address;
-    private List<TrainingSession> trainingSessions;
+    private List<String> trainingSessions;
     private List<String> roleList;
 
     public UserDTO(User user){
@@ -25,6 +25,7 @@ public class UserDTO {
         this.userEmail = user.getUserEmail();
         this.userPass = user.getUserPass();
         this.address = new AddressDTO(user.getAddress());
+        this.trainingSessions = user.getTrainingsAsStrings();
         this.roleList = user.getRolesAsStrings();
     }
 
@@ -36,6 +37,7 @@ public class UserDTO {
         user.setUserEmail(this.userEmail);
         user.setUserPass(this.userPass);
         user.setAddress(this.address.getEntity());
+        user.getTrainingsAsStrings();
         user.getRolesAsStrings();
         return user;
     }
@@ -85,11 +87,11 @@ public class UserDTO {
         this.address = address;
     }
 
-    public List<TrainingSession> getTrainingSessions() {
+    public List<String> getTrainingSessions() {
         return trainingSessions;
     }
 
-    public void setTrainingSessions(List<TrainingSession> trainingSessions) {
+    public void setTrainingSessions(List<String> trainingSessions) {
         this.trainingSessions = trainingSessions;
     }
 
