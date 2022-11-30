@@ -104,4 +104,5 @@ public class TrainingSessionFacade {
             em.close();
         }
     }
+
 }
