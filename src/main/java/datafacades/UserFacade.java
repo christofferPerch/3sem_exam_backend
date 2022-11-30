@@ -126,6 +126,7 @@ public class UserFacade {
         }
         return user;
     }
+
     public User addUserToTrainingSession(String userName,int trainingSessionId) throws API_Exception {
         EntityManager em = getEntityManager();
         User user = em.find(User.class,userName);
@@ -147,4 +148,30 @@ public class UserFacade {
         }
         return user;
     }
+
+    public User RemoveUserToTrainingSession(String userName,int trainingSessionId) throws API_Exception {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class,userName);
+        TrainingSession trainingSession = em.find(TrainingSession.class,trainingSessionId);
+        try {
+            em.getTransaction().begin();
+            user.removeTrainingSession(trainingSession);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (user == null) {
+                throw new API_Exception("Can't find a user with the username: " + userName,400,e);
+            }
+            if (trainingSession == null) {
+                throw  new API_Exception("Can't find a trainingsession with the id: "+trainingSessionId,400,e);
+            }
+        } finally {
+            em.close();
+        }
+        return user;
+    }
+
 }
+
+
+

@@ -84,4 +84,14 @@ public class UserResource {
                 type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
+    @DELETE
+    @Path("/remove/{userName}/{trainingSessionId}")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response removeUserToTrainingSession(@PathParam("userName") String userName,
+                                             @PathParam("trainingSessionId") int id) throws API_Exception {
+        return Response.ok().entity(GSON.toJson(facade.removeUserToTrainingSession(userName,id))).
+                type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
 }
