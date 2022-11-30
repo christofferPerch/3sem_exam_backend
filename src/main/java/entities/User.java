@@ -166,6 +166,12 @@ public class User implements Serializable {
         trainingSessions.add(userTrainingSession);
     }
 
+    public void removeTrainingSession(TrainingSession trainingSession) {
+        if (trainingSession != null) {
+            trainingSessions.remove(trainingSession);
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
