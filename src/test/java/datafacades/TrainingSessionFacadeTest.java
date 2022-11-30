@@ -78,7 +78,11 @@ class TrainingSessionFacadeTest {
     }
     @Test
     void deleteTrainingSession() throws API_Exception {
+        TrainingSession trainingSession = new TrainingSession("test","10:30", new Date(2022-12-1),"Jernbanevej 1",new Category("test"),10);
+        facade.createTrainingSession(trainingSession);
         facade.deleteTrainingSession(1);
+        int actualSize = facade.getAllTrainingSessions().size();
+        assertEquals(0, actualSize);
     }
 
     @Test
