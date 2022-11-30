@@ -39,6 +39,16 @@ public class TrainingSession {
     public TrainingSession() {
     }
 
+    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
+        this.id = id;
+        this.title = title;
+        this.time = time;
+        this.date = date;
+        this.fullAddress = fullAddress;
+        this.category = category;
+        this.maxParticipants = maxParticipants;
+    }
+
     public TrainingSession(String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
         this.title = title;
         this.time = time;
