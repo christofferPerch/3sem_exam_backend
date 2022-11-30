@@ -79,6 +79,8 @@ class TrainingSessionFacadeTest {
     @Test
     void deleteTrainingSession() throws API_Exception {
         facade.deleteTrainingSession(1);
+        int actualSize = facade.getAllTrainingSessions().size();
+        assertEquals(1, actualSize);
     }
 
     @Test
@@ -88,6 +90,14 @@ class TrainingSessionFacadeTest {
         assertEquals(expected,actual);
     }
 
+    @Test
+    void editTrainingSession() throws API_Exception {
+        trainingSession1 = new TrainingSession(1, "Dance Training Session!", "11:30", date1, "Nørgårdsve 0", category1, 10);
+        TrainingSession expected = trainingSession1;
+        TrainingSession actual = facade.editTrainingSession(expected);
+        assertEquals(expected, actual);
+
+    }
     @Test
     void deregisterTrainingSession(){
 
