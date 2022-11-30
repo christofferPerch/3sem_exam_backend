@@ -209,21 +209,21 @@ public class UserResourceTest {
                 .statusCode(200);
     }
 
-   /* @Test
+    @Test
     void updateUser() {
-        u1.setUserEmail("nytnavn@gmail.com");
-        u1.setRoleList(new ArrayList<>());
+        udto1.setUserEmail("nyemail@gmail.com");
+        udto1.setRoleList(new ArrayList<>());
         given()
                 .header("Content-type", ContentType.JSON)
-                .body(GSON.toJson(u1))
+                .body(GSON.toJson(udto1))
                 .when()
-                .put("/users/"+u1.getUserName())
+                .put("/users/" + udto1.getUserName())
                 .then()
                 .assertThat()
                 .statusCode(200)
-                .body("userName", equalTo(u1.getUserName()))
-                .body("userEmail", equalTo("nytnavn@gmail.com"));
+                .body("userName", equalTo("Oscar"))
+                .body("userEmail", equalTo("nyemail@gmail.com"));
     }
 
-    */
+
 }
