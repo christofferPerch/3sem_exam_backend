@@ -85,6 +85,17 @@ public class User implements Serializable {
         this.trainingSessions = trainingSessions;
     }
 
+    public List<String> getTrainingsAsStrings(){
+        if(trainingSessions.isEmpty()) {
+            return null;
+        }
+        List<String> trainingsAsStrings = new ArrayList<>();
+        trainingSessions.forEach((ts ->{
+            trainingsAsStrings.add(ts.getTitle());
+        }));
+        return trainingsAsStrings;
+    }
+
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;

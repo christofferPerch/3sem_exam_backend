@@ -1,6 +1,7 @@
 package datafacades;
 
 import entities.Role;
+import entities.TrainingSession;
 import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -119,6 +120,27 @@ public class UserFacade {
         } catch (Exception e) {
             if (user == null) {
                 throw new API_Exception("Can't find a user with the username: " + userName,400,e);
+            }
+        } finally {
+            em.close();
+        }
+        return user;
+    }
+    public User addUserToTrainingSession(String userName,int trainingSessionId) throws API_Exception {
+        EntityManager em = getEntityManager();
+        User user = em.find(User.class,userName);
+        TrainingSession trainingSession = em.find(TrainingSession.class,trainingSessionId);
+        try {
+            em.getTransaction().begin();
+            user.addTrainingSession(trainingSession);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            if (user == null) {
+                throw new API_Exception("Can't find a user with the username: " + userName,400,e);
+            }
+            if (trainingSession == null) {
+                throw  new API_Exception("Can't find a trainingsession with the id: "+trainingSessionId,400,e);
             }
         } finally {
             em.close();

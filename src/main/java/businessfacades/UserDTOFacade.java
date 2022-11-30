@@ -43,4 +43,8 @@ public class UserDTOFacade {
     public UserDTO deleteUser(String userName) throws API_Exception {
         return new UserDTO(userFacade.deleteUser(userName));
     }
+    public UserDTO addUserToTrainingSession(String userName, int id) throws API_Exception {
+        return new UserDTO(userFacade.addUserToTrainingSession(userName,id));
+    }
+
 }
