@@ -134,7 +134,7 @@ public class TrainingSession {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
     }
 
     @Override

@@ -42,7 +42,7 @@ public class TrainingSessionFacade {
         //TrainingSession trainingSession = new TrainingSession(id, title, time, date,fullAddress, category, maxParticipants, users);
         try {
             em.getTransaction().begin();
-            em.merge(trainingSession);
+            em.persist(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new API_Exception("This is an error " + trainingSession.getId() + "!");
