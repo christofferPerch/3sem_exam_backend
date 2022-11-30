@@ -11,6 +11,8 @@ import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import java.util.Date;
 
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TrainingSessionFacadeTest {
     private static EntityManagerFactory emf;
     private static TrainingSessionFacade facade;
+    private static TrainingSession ts1;
 
     @BeforeAll
     public static void setUpClass() {
@@ -33,6 +36,21 @@ class TrainingSessionFacadeTest {
 
     @BeforeEach
     public void setUp() {
+        EntityManager em = emf.createEntityManager();
+        ts1= new TrainingSession("test","10:30", new Date(20221201),"jernbanevej 1", null,10);
+        try{
+            em.getTransaction().begin();
+            Category category;//=em.find(Category.class, 1);
+            TypedQuery<Category> query = em.createQuery("select c from Category c where c.categoryName=:name",Category.class);
+            query.setParameter("name","Yoga");
+            category = query.getSingleResult();
+            System.out.println(category);
+//            ts1.setCategory(category);
+//            em.persist(ts1);
+            em.getTransaction().commit();
+        }finally {
+            em.close();
+        }
     }
 
     @Test
@@ -46,6 +64,8 @@ class TrainingSessionFacadeTest {
     @Test
     void deleteTrainingSession() throws API_Exception {
         facade.deleteTrainingSession(1);
+        int actualSize = facade.getAllTrainingSessions().size();
+        assertEquals(1, actualSize);
     }
 
     @Test

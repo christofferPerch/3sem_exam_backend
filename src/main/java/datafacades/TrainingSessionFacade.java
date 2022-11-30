@@ -13,6 +13,7 @@ import security.errorhandling.AuthenticationException;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -39,7 +40,6 @@ public class TrainingSessionFacade {
 
     public TrainingSession createTrainingSession(TrainingSession trainingSession) throws API_Exception {
         EntityManager em = getEntityManager();
-        //TrainingSession trainingSession = new TrainingSession(id, title, time, date,fullAddress, category, maxParticipants, users);
         try {
             em.getTransaction().begin();
             em.merge(trainingSession);
@@ -55,25 +55,53 @@ public class TrainingSessionFacade {
     public TrainingSession getTrainingSession(int id) throws API_Exception {
         EntityManager em = getEntityManager();
         try {
+            //replace with em.find
             TypedQuery<TrainingSession> query = em.createQuery("SELECT t FROM TrainingSession t where t.id=:id", TrainingSession.class);
             query.setParameter("id", id);
             return query.getSingleResult();
-        } catch (Exception e){
-            throw new API_Exception("Can't find any users in the system",404,e);
+        } catch (Exception e) {
+            throw new API_Exception("Can't find any users in the system", 404, e);
         }
     }
 
 
-    public void deleteTrainingSession(int id) throws API_Exception {
+    public TrainingSession deleteTrainingSession(int id) throws API_Exception {
         EntityManager em = getEntityManager();
         try {
+            TrainingSession tstoRemove = em.find(TrainingSession.class, id);
             em.getTransaction().begin();
-            TrainingSession tstoRemove = em.find(TrainingSession.class,id);
             em.remove(tstoRemove);
             em.getTransaction().commit();
-        } catch (Exception e){
-            throw new API_Exception("Can't find any training sessions in the system with that id",404,e);
+            return tstoRemove;
+        } catch (Exception e) {
+            throw new API_Exception("could not remove training session with id: " + id, 404, e);
+        } finally {
+            em.close();
         }
     }
 
+    public List<TrainingSession> getAllTrainingSessions() throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<TrainingSession> query = em.createQuery("SELECT t FROM TrainingSession  t", TrainingSession.class);
+            return query.getResultList();
+        } catch (Exception e) {
+            throw new API_Exception("could not find any training sessions", 404, e);
+        }
+    }
+
+    public TrainingSession editTrainingSession(TrainingSession trainingSession) throws API_Exception {
+        EntityManager em = getEntityManager();
+        try {
+            em.find(TrainingSession.class, trainingSession.getId());
+            em.getTransaction().begin();
+            em.merge(trainingSession);
+            em.getTransaction().commit();
+            return trainingSession;
+        } catch (Exception e) {
+            throw new API_Exception("fail", 404, e);
+        }finally {
+            em.close();
+        }
+    }
 }
