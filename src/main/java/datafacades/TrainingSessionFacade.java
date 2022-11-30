@@ -42,19 +42,7 @@ public class TrainingSessionFacade {
         //TrainingSession trainingSession = new TrainingSession(id, title, time, date,fullAddress, category, maxParticipants, users);
         try {
             em.getTransaction().begin();
-            em.merge(trainingSession.getCategory());
-            System.out.println(trainingSession);
-//            List<TrainingSession> tslist = new ArrayList<>();
-//                    tslist.add(trainingSession);
-//            trainingSession.getCategory().setTrainingSessions(tslist);
-            Category newcat = em.find(Category.class,5);
-            trainingSession.setCategory(newcat);
-//            System.out.println(category);
-//            Category test = em.find(Category.class, 4);
-//            Query query = em.createQuery("select c from Category c where c.categoryName=:name",Category.class);
-//            query.setParameter("name", trainingSession.getCategory().getCategoryName());
-//            trainingSession.setCategory(category);
-            em.persist(trainingSession);
+            em.merge(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new API_Exception("This is an error " + trainingSession.getId() + "!");

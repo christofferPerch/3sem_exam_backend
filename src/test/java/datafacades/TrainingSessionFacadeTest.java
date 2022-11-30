@@ -39,7 +39,7 @@ class TrainingSessionFacadeTest {
     void createTrainingSession() throws API_Exception {
         Category category1 = new Category("Yoga");
         //date doesn't work correctly:
-        TrainingSession trainingSession = new TrainingSession("test","10:30", new Date(2022-12-1),"Jernbanevej 1",null,10);
+        TrainingSession trainingSession = new TrainingSession("test","10:30", new Date(2022-12-1),"Jernbanevej 1",category1,10);
         System.out.println(trainingSession);
         facade.createTrainingSession(trainingSession);
     }
@@ -50,5 +50,10 @@ class TrainingSessionFacadeTest {
 
     @Test
     void getTrainingSession() {
+    }
+
+    @Test
+    void deregisterTrainingSession(){
+
     }
 }
