@@ -37,5 +37,5 @@ POST http://localhost:8080/api/users/add/userfar/1
 Content-Type: application/json
 
 ###
-DELETE http://localhost:8080/api/users/remove/userfar/1
+DELETE http://localhost:8080/api/users/remove/userfar/2
 Content-Type: application/json
