@@ -1,13 +1,11 @@
 package businessfacades;
 
-import com.google.gson.JsonElement;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import datafacades.TrainingSessionFacade;
 import dtos.TrainingSessionDTO;
-import dtos.UserDTO;
 import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
@@ -36,6 +34,18 @@ public class TrainingSessionDTOFacade {
 
     public TrainingSessionDTO createTrainingSession(TrainingSessionDTO trainingSessionDTO) throws API_Exception {
         return new TrainingSessionDTO(trainingSessionFacade.createTrainingSession(trainingSessionDTO.getEntity()));
+    }
+
+    public TrainingSessionDTO deleteTrainingSession(int id) throws API_Exception {
+        return new TrainingSessionDTO(trainingSessionFacade.deleteTrainingSession(id));
+    }
+
+    public TrainingSessionDTO getTrainingSession(int id) throws API_Exception {
+        return new TrainingSessionDTO(trainingSessionFacade.getTrainingSession(id));
+    }
+
+    public TrainingSessionDTO editTrainingSession(TrainingSession trainingSession) throws API_Exception {
+        return new TrainingSessionDTO(trainingSessionFacade.editTrainingSession(trainingSession));
     }
 
     public String sendEmailToAllUsers(int trainingSessionId) throws UnirestException, API_Exception {

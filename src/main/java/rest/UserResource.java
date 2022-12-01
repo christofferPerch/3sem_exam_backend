@@ -71,16 +71,6 @@ public class UserResource {
         return Response.ok().entity(GSON.toJson(deletedUser)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
-    @POST
-    @Path("/createTrainingSession")
-    @Produces({MediaType.APPLICATION_JSON})
-    @Consumes({MediaType.APPLICATION_JSON})
-    public Response createTrainingSession(String content) throws API_Exception {
-        TrainingSessionDTO trainingSessionDTO = GSON.fromJson(content, TrainingSessionDTO.class);
-        TrainingSessionDTO newTrainingSessionDTO = trainingFacade.createTrainingSession(trainingSessionDTO);
-        return Response.ok().entity(GSON.toJson(newTrainingSessionDTO)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
-    }
-
     @GET
     @Path("/email/{trainingSessionId}")
     @Produces({MediaType.APPLICATION_JSON})
