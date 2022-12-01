@@ -127,7 +127,7 @@ public class UserFacadeTest {
     }
 
     @Test
-    void CantFindUserToDelete() {
+    void cantFindUserToDelete() {
         assertThrows(API_Exception.class, () -> facade.deleteUser("HEJSA"));
     }
 }

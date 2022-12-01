@@ -92,6 +92,11 @@ public class User implements Serializable {
         List<String> trainingsAsStrings = new ArrayList<>();
         trainingSessions.forEach((ts ->{
             trainingsAsStrings.add(ts.getTitle());
+            trainingsAsStrings.add(ts.getTime());
+            trainingsAsStrings.add(String.valueOf(ts.getDate()));
+            trainingsAsStrings.add(ts.getFullAddress());
+            trainingsAsStrings.add(String.valueOf(ts.getCategory().getId()));
+            trainingsAsStrings.add(String.valueOf(ts.getMaxParticipants()));
         }));
         return trainingsAsStrings;
     }
