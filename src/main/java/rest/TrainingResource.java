@@ -43,25 +43,32 @@ public class TrainingResource {
     @Path("/{trainingSessionId}")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response deleteUser(@PathParam("trainingSessionId") int trainingSessionId) throws API_Exception {
+    public Response deleteTrainingSession(@PathParam("trainingSessionId") int trainingSessionId) throws API_Exception {
         TrainingSessionDTO deleteMyTrainingSession = trainingFacade.deleteTrainingSession(trainingSessionId);
         return Response.ok().entity(GSON.toJson(deleteMyTrainingSession)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
     @GET
-    @Path("/getTrainingSesssion/{trainingSessionId}")
+    @Path("/get/{trainingSessionId}") //get trainingsession by id
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("trainingSessionId") int trainingSessionId) throws API_Exception {
         return Response.ok().entity(GSON.toJson(trainingFacade.getTrainingSession(trainingSessionId))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 
     @PUT
-    @Path("/updateTrainingSession")
+    @Path("/update")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response update(String content) throws EntityNotFoundException, API_Exception {
+    public Response updateTrainingSession(String content) throws EntityNotFoundException, API_Exception {
         TrainingSession updateDTO = GSON.fromJson(content, TrainingSession.class);
         TrainingSessionDTO updateTrainingSession = trainingFacade.editTrainingSession(updateDTO);
         return Response.ok().entity(GSON.toJson(updateTrainingSession)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    @Path("all") //get all
+    public Response allTrainingSessions() throws API_Exception {
+        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).build();
     }
 }
