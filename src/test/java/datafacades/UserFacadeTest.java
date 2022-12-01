@@ -66,6 +66,7 @@ public class UserFacadeTest {
         u1.setUserPass("test");
         u1.setUserEmail("Oscar@gmail.com");
         u1.addRole(userRole);
+        u1.addTrainingSession(t1);
         u1.setAddress(a1);
         u2.setUserName("Mark");
         u2.setUserPass("test");
@@ -147,5 +148,16 @@ public class UserFacadeTest {
     @Test
     void cantFindUserToDelete() {
         assertThrows(API_Exception.class, () -> facade.deleteUser("HEJSA"));
+    }
+
+    @Test
+    void addUserToTrainingSession() throws API_Exception {
+        User user = facade.addUserToTrainingSession(u2.getUserName(),t2.getId());
+        int actual = user.getTrainingSessions().size();
+        assertEquals(1,actual);
+    }
+    @Test
+    void cantFindUserToAddToTrainingSession() throws API_Exception {
+        assertThrows(API_Exception.class, () -> facade.addUserToTrainingSession("test",t1.getId()));
     }
 }
