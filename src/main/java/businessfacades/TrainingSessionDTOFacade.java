@@ -6,7 +6,6 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import datafacades.TrainingSessionFacade;
 import dtos.TrainingSessionDTO;
-import dtos.UserDTO;
 import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
@@ -19,7 +18,6 @@ public class TrainingSessionDTOFacade {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final String APK_KEY = ""; //API KEY MUST BE SAVED IN SEPERATED FOLDER AND NOT BE DEPLOYED TO GITHUB!!!!!
 
-    private UserDTOFacade userFacade = UserDTOFacade.getInstance(EMF);
     private static TrainingSessionDTOFacade instance;
     private static TrainingSessionFacade trainingSessionFacade;
 
@@ -28,7 +26,7 @@ public class TrainingSessionDTOFacade {
 
     public static TrainingSessionDTOFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
-            trainingSessionFacade = TrainingSessionFacade.getUserFacade(_emf);
+            trainingSessionFacade = TrainingSessionFacade.getTrainingSessionFacade(_emf);
             instance = new TrainingSessionDTOFacade();
         }
         return instance;
@@ -46,8 +44,8 @@ public class TrainingSessionDTOFacade {
         return new TrainingSessionDTO(trainingSessionFacade.getTrainingSession(id));
     }
 
-    public TrainingSessionDTO editTrainingSession(TrainingSession trainingSession) throws API_Exception {
-        return new TrainingSessionDTO(trainingSessionFacade.editTrainingSession(trainingSession));
+    public TrainingSessionDTO editTrainingSession(TrainingSessionDTO trainingSessionDTO) throws API_Exception {
+        return new TrainingSessionDTO(trainingSessionFacade.editTrainingSession(trainingSessionDTO.getEntity()));
     }
 
     public List<TrainingSessionDTO> getAllTrainingSessions() throws API_Exception {

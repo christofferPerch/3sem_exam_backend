@@ -60,7 +60,7 @@ public class TrainingResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
     public Response updateTrainingSession(String content) throws EntityNotFoundException, API_Exception {
-        TrainingSession updateDTO = GSON.fromJson(content, TrainingSession.class);
+        TrainingSessionDTO updateDTO = GSON.fromJson(content, TrainingSessionDTO.class);
         TrainingSessionDTO updateTrainingSession = trainingFacade.editTrainingSession(updateDTO);
         return Response.ok().entity(GSON.toJson(updateTrainingSession)).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }

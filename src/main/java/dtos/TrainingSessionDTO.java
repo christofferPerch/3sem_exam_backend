@@ -19,7 +19,9 @@ public class TrainingSessionDTO {
     private List<User> users;
 
     public TrainingSessionDTO(TrainingSession trainingSession) {
-        this.id = trainingSession.getId();
+        if(trainingSession.getId() !=null) {
+            this.id = trainingSession.getId();
+        }
         this.title = trainingSession.getTitle();
         this.time = trainingSession.getTime();
         this.date = trainingSession.getDate();

@@ -40,7 +40,7 @@ class TrainingSessionFacadeTest {
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
-        facade = TrainingSessionFacade.getUserFacade(emf);
+        facade = TrainingSessionFacade.getTrainingSessionFacade(emf);
     }
 
     @AfterAll

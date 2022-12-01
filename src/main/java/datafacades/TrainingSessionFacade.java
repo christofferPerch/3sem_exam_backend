@@ -1,19 +1,11 @@
 package datafacades;
 
-import entities.Category;
-import entities.Role;
 import entities.TrainingSession;
-import entities.User;
 
 import javax.persistence.*;
 
 import errorhandling.API_Exception;
-import errorhandling.NotFoundException;
-import security.errorhandling.AuthenticationException;
 
-import java.time.Instant;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 
@@ -26,7 +18,7 @@ public class TrainingSessionFacade {
     }
 
 
-    public static TrainingSessionFacade getUserFacade(EntityManagerFactory _emf) {
+    public static TrainingSessionFacade getTrainingSessionFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new TrainingSessionFacade();
