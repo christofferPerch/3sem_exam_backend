@@ -62,6 +62,7 @@ public class UserFacadeTest {
         cat2 = new Category(2, "Dans");
         t1 = new TrainingSession("Yoga Training Session!", "10:30", date1, "Høje Gladsaxe 2", cat1, 20);
         t2 = new TrainingSession("Dance Training Session!", "11:30", date1, "Nørgårdsvej 20", cat2, 10);
+        u1.addTrainingSession(t1);
         u1.setUserName("Oscar");
         u1.setUserPass("test");
         u1.setUserEmail("Oscar@gmail.com");
@@ -160,4 +161,24 @@ public class UserFacadeTest {
     void cantFindUserToAddToTrainingSession() throws API_Exception {
         assertThrows(API_Exception.class, () -> facade.addUserToTrainingSession("test",t1.getId()));
     }
+
+    @Test
+    void removeUserToTrainingSession() throws API_Exception {
+        User removeUser = facade.removeUserToTrainingSession(u1.getUserName(), t1.getId());
+        int actual = removeUser.getTrainingSessions().size();
+        assertEquals(0, actual);
+
+    }
+
+    @Test
+    void cantFindUserToDeleteFromTrainingSession() {
+        assertThrows(API_Exception.class, () -> facade.removeUserToTrainingSession("User3", t1.getId()));
+    }
+
+
+
+
+
+
+
 }
