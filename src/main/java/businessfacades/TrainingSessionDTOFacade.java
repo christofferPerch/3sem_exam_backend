@@ -6,12 +6,14 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import datafacades.TrainingSessionFacade;
 import dtos.TrainingSessionDTO;
+import dtos.UserDTO;
 import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
+import java.util.List;
 
 public class TrainingSessionDTOFacade {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
@@ -46,6 +48,10 @@ public class TrainingSessionDTOFacade {
 
     public TrainingSessionDTO editTrainingSession(TrainingSession trainingSession) throws API_Exception {
         return new TrainingSessionDTO(trainingSessionFacade.editTrainingSession(trainingSession));
+    }
+
+    public List<TrainingSessionDTO> getAllTrainingSessions() throws API_Exception {
+        return TrainingSessionDTO.getTrainingSessionDTOs(trainingSessionFacade.getAllTrainingSessions());
     }
 
     public String sendEmailToAllUsers(int trainingSessionId) throws UnirestException, API_Exception {
