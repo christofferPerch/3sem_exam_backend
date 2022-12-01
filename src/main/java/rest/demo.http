@@ -2,12 +2,19 @@
 GET http://localhost:8080/api/info
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/ole123
+PUT http://localhost:8080/api/users/user
 Content-Type: application/json
 
 {
   "userPass": "test",
-  "userEmail": "test@test.com"
+  "userEmail": "test@test.com",
+  "address": {
+    "streetAddress": "Sankt Jacobsvej",
+    "cityInfo": {
+      "zipCode": 2750,
+      "cityName": "Ballerup"
+    }
+  }
 }
 
 ### List of all users
