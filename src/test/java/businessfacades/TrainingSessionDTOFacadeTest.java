@@ -1,7 +1,6 @@
 package businessfacades;
 
 import dtos.TrainingSessionDTO;
-import dtos.UserDTO;
 import entities.*;
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
