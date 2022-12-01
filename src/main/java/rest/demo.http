@@ -32,6 +32,10 @@ Content-Type: application/json
 DELETE http://localhost:8080/api/users/user
 Content-Type: application/json
 
+### Delete Training session
+DELETE http://localhost:8080/api/training/2
+Content-Type: application/json
+
 ###
 POST http://localhost:8080/api/users/add/userfar/1
 Content-Type: application/json
