@@ -162,7 +162,8 @@ public class UserDTOFacadeTest {
     void addUserToTrainingSession() throws API_Exception {
         UserDTO userDTO = facade.addUserToTrainingSession(udto1.getUserName(),t2.getId());
         int actual = userDTO.getTrainingSessions().size();
-        assertEquals(1,actual);
+        assertEquals(12,actual);
+
     }
     @Test
     void cantFindUserToAddToTrainingSession() throws API_Exception {
@@ -172,7 +173,8 @@ public class UserDTOFacadeTest {
     @Test
     void removeUserToTrainingSession() throws API_Exception {
         UserDTO userDTO = facade.removeUserToTrainingSession(udto1.getUserName(), t1.getId());
-        int actual = userDTO.getTrainingSessions().size();
+        User user = userDTO.getEntity();
+        int actual = user.getTrainingSessions().size();
         assertEquals(0, actual);
 
     }
