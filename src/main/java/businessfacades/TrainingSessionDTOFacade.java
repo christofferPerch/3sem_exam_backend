@@ -9,7 +9,6 @@ import dtos.TrainingSessionDTO;
 import entities.TrainingSession;
 import entities.User;
 import errorhandling.API_Exception;
-import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
