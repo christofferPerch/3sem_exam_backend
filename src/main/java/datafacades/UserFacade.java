@@ -149,7 +149,7 @@ public class UserFacade {
         return user;
     }
 
-    public User RemoveUserToTrainingSession(String userName,int trainingSessionId) throws API_Exception {
+    public User removeUserToTrainingSession(String userName, int trainingSessionId) throws API_Exception {
         EntityManager em = getEntityManager();
         User user = em.find(User.class,userName);
         TrainingSession trainingSession = em.find(TrainingSession.class,trainingSessionId);

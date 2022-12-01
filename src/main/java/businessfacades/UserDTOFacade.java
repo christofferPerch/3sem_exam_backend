@@ -1,9 +1,7 @@
 package businessfacades;
 
 import dtos.UserDTO;
-import entities.User;
 import errorhandling.API_Exception;
-import errorhandling.NotFoundException;
 import datafacades.UserFacade;
 import security.errorhandling.AuthenticationException;
 
@@ -47,7 +45,7 @@ public class UserDTOFacade {
         return new UserDTO(userFacade.addUserToTrainingSession(userName,id));
     }
     public UserDTO removeUserToTrainingSession(String userName, int id) throws API_Exception {
-        return new UserDTO(userFacade.RemoveUserToTrainingSession(userName,id));
+        return new UserDTO(userFacade.removeUserToTrainingSession(userName,id));
     }
 
 }
