@@ -3,10 +3,7 @@ package datafacades;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
-import entities.Category;
-import entities.Role;
-import entities.TrainingSession;
-import entities.User;
+import entities.*;
 import utils.EMF_Creator;
 
 import java.sql.Timestamp;
@@ -31,6 +28,10 @@ public class Populator {
         Category c2 = new Category("Dans");
         TrainingSession t1 = new TrainingSession("Hot Yoga","10.00",date1,"Københavns yoga akademi",c1,10);
         TrainingSession t2 = new TrainingSession("Hot Dans","12.00",date1,"Ålborgs danse akademi",c2,12);
+        CityInfo city1 = new CityInfo(2750,"Ballerup");
+        CityInfo city2 = new CityInfo(2800,"Kongens Lyngby");
+        Address a1 = new Address("Sankt Jacobsvej",city1);
+        Address a2 = new Address("Nørgaardsvej",city2);
 
 
         if(admin.getUserPass().equals("test")||user.getUserPass().equals("test"))
@@ -41,8 +42,12 @@ public class Populator {
         Role adminRole = new Role("admin");
         user.addRole(userRole);
         user.addTrainingSession(t1);
+        user.setAddress(a1);
         admin.addRole(adminRole);
         admin.addTrainingSession(t2);
+        admin.setAddress(a2);
+        em.persist(a1);
+        em.persist(a2);
         em.persist(c1);
         em.persist(c2);
         em.persist(t1);
