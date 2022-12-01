@@ -15,7 +15,6 @@ import javax.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class TrainingSessionDTOFacade {
-    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final String APK_KEY = ""; //API KEY MUST BE SAVED IN SEPERATED FOLDER AND NOT BE DEPLOYED TO GITHUB!!!!!
 
     private static TrainingSessionDTOFacade instance;
