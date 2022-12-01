@@ -67,7 +67,6 @@ public class UserFacadeTest {
         u1.setUserPass("test");
         u1.setUserEmail("Oscar@gmail.com");
         u1.addRole(userRole);
-        u1.addTrainingSession(t1);
         u1.setAddress(a1);
         u2.setUserName("Mark");
         u2.setUserPass("test");
