@@ -75,7 +75,7 @@ public class TrainingSessionFacade {
     public List<TrainingSession> getAllTrainingSessions() throws API_Exception {
         EntityManager em = getEntityManager();
         try {
-            TypedQuery<TrainingSession> query = em.createQuery("SELECT t FROM TrainingSession  t", TrainingSession.class);
+            TypedQuery<TrainingSession> query = em.createQuery("SELECT t FROM TrainingSession t", TrainingSession.class);
             return query.getResultList();
         } catch (Exception e) {
             throw new API_Exception("could not find any training sessions", 404, e);

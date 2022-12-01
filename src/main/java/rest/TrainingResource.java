@@ -66,9 +66,9 @@ public class TrainingResource {
     }
 
     @GET
+    @Path("/all") //get all
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("all") //get all
     public Response allTrainingSessions() throws API_Exception {
-        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).build();
+        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 }
