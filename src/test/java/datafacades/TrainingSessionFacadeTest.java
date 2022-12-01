@@ -53,7 +53,9 @@ class TrainingSessionFacadeTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
+            em.createNamedQuery("TrainingSession.deleteAllRows").executeUpdate();
             em.createNamedQuery("Category.deleteAllRows").executeUpdate();
+
 
             category1 = new Category(1, "Yoga");
             category2 = new Category(2, "Dans");
@@ -78,7 +80,7 @@ class TrainingSessionFacadeTest {
     }
     @Test
     void deleteTrainingSession() throws API_Exception {
-        facade.deleteTrainingSession(1);
+        facade.deleteTrainingSession(trainingSession1.getId());
         int actualSize = facade.getAllTrainingSessions().size();
         assertEquals(1, actualSize);
     }
