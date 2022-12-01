@@ -1,7 +1,6 @@
 package entities;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.*;
 
 @Entity
@@ -39,6 +38,25 @@ public class TrainingSession {
     private List<User> users = new ArrayList<>();
 
     public TrainingSession() {
+    }
+
+    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
+        this.id = id;
+        this.title = title;
+        this.time = time;
+        this.date = date;
+        this.fullAddress = fullAddress;
+        this.category = category;
+        this.maxParticipants = maxParticipants;
+    }
+
+    public TrainingSession(String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
+        this.title = title;
+        this.time = time;
+        this.date = date;
+        this.fullAddress = fullAddress;
+        this.category = category;
+        this.maxParticipants = maxParticipants;
     }
 
     public Integer getId() {
@@ -113,9 +131,21 @@ public class TrainingSession {
         return getId().equals(that.getId());
     }
 
+    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
+        this.id = id;
+        this.title = title;
+        this.time = time;
+
+        this.date = date;
+        this.fullAddress = fullAddress;
+        this.category = category;
+        this.maxParticipants = maxParticipants;
+        this.users = users;
+    }
+
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
     }
 
     @Override

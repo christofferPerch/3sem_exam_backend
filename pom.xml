@@ -118,6 +118,22 @@
             <version>1.0.0</version>
         </dependency>
 
+
+        <!-- https://mvnrepository.com/artifact/net.sargue/mailgun -->
+        <dependency>
+            <groupId>net.sargue</groupId>
+            <artifactId>mailgun</artifactId>
+            <version>1.10.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.mashape.unirest/unirest-java -->
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>

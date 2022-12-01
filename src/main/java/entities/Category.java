@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
+@NamedQuery(name = "Category.deleteAllRows", query = "DELETE from Category")
 @Table(name = "category")
 public class Category {
     @Id
@@ -18,6 +19,15 @@ public class Category {
     private List<TrainingSession> trainingSessions = new ArrayList<>();
 
     public Category() {
+    }
+
+    public Category(Integer id, String categoryName) {
+        this.id = id;
+        this.categoryName = categoryName;
+    }
+
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public Integer getId() {
