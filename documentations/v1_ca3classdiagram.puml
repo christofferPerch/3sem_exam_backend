@@ -35,7 +35,7 @@ class TrainingSessionDTO {
 - Integer id;
 - String title;
 - String time;
-- Date date;
+- String date;
 - String fullAddress;
 - Category category;
 - Integer maxParticipants;
@@ -86,7 +86,14 @@ class UserFacade {
 
 
 class TrainingSessionFacade {
+- EntityManagerFactory emf;
+- TrainingSessionFacade instance;
 
++ createTrainingSession()
++ getTrainingSession()
++ deleteTrainingSession()
++ getAllTrainingSessions()
++ editTrainingSession()
 
 }
 
@@ -97,7 +104,7 @@ package "rest" {
 
 class UserResource() {
 - EntityManagerFactory EMF;
-- PersonFacade FACADE;
+- UserFacade FACADE;
 - Gson GSON;
 
 + getById()
@@ -105,6 +112,19 @@ class UserResource() {
 + create()
 + update()
 + deleteUser()
+
+}
+
+class TrainingResource() {
+- EntityManagerFactory EMF;
+- TrainingSessionFacade FACADE;
+- Gson GSON;
+
++ createTrainingSession()
++ getTrainingSession()
++ deleteTrainingSession()
++ getAllTrainingSessions()
++ updateTrainingSession()
 
 }
 
@@ -132,7 +152,7 @@ class TrainingSession {
 - Integer id;
 - String title;
 - String time;
-- Date date;
+- String date;
 - String fullAddress;
 - Category category;
 - Integer maxParticipants;
@@ -199,6 +219,25 @@ class UserFacadeTest {
 
 }
 
+class TrainingSessionFacadeTest {
+- EntityManagerFactory emf;
+- TrainingSessionFacade facade;
+- Category cat1, cat2;
+- TrainingSession ts1, ts2;
+- String myDate;
+
++ setUp()
++ createTrainingSessionTest()
++ createNoDuplicateTrainings()
++ findTrainingById()
++ findAllTrainings()
++ deleteTraining()
++ editTraining()
++ CantFindUserToDelete()
+
+
+}
+
 }
 
 package "businessfacades" {
@@ -221,6 +260,25 @@ class UserDTOFacadeTest {
 
 }
 
+class TrainingSessionDTOFacadeTest {
+- EntityManagerFactory emf;
+- TrainingSessionDTOFacade facade;
+- Category cat1, cat2;
+- TrainingSessionDTO tdto1, tdto2;
+- TrainingSession ts1, ts2;
+- String myDate;
+
++ setUp()
++ createTrainingSessionDTOTest()
++ createNoDuplicateTrainingDTOs()
++ findTrainingDTOById()
++ findAllTrainingDTOs()
++ deleteTrainingDTO()
++ editTrainingDTO()
++ CantFindUserDTOToDelete()
+
+
+}
 }
 
 package "restTest" {
