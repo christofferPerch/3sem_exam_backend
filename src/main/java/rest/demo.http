@@ -45,7 +45,7 @@ Content-Type: application/json
 ##### TRAINING SESSION ENDPOINT: #######
 
 ### Delete Training session
-DELETE http://localhost:8080/api/training/2
+DELETE http://localhost:8080/api/training/3
 Content-Type: application/json
 
 ### Create trainingsession
@@ -79,9 +79,12 @@ Content-Type: application/json
   "maxParticipants": 15
 }
 
-###
-GET http://localhost:8080/api/training/all
+### Get by id
+GET http://localhost:8080/api/training/get/1
 Content-Type: application/json
 
+### Get all
+GET http://localhost:8080/api/training/all
+Content-Type: application/json
 
 ###
