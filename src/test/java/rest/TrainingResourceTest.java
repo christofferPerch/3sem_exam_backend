@@ -37,21 +37,13 @@ class TrainingResourceTest {
     TrainingSession trainingSession1, trainingSession2;
     TrainingSessionDTO trainingSessionDTO1,trainingSessionDTO2;
 
-    String myDate = "2022/10/29 18:10:45";
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date date = sdf.parse(myDate);
-
-    long millis = date.getTime();
-    java.sql.Timestamp date1= new Timestamp(millis);
+    String date1 = "2022/10/29";
 
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
-
-    TrainingResourceTest() throws ParseException {
-    }
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
@@ -157,6 +149,6 @@ class TrainingResourceTest {
                 .get("/training/all")
                 .then()
                 .extract().body().jsonPath().getList("", TrainingSessionDTO.class);
-        assertThat(trainingSessionDTOS, containsInAnyOrder(trainingSession1,trainingSession2));
+        assertThat(trainingSessionDTOS, containsInAnyOrder(trainingSessionDTO1,trainingSessionDTO2));
     }
     }
