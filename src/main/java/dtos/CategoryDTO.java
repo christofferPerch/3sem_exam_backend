@@ -11,12 +11,16 @@ import java.util.Objects;
 public class CategoryDTO {
     private Integer id;
     private String categoryName;
-    private List<TrainingSession> trainingSessions;
+    private List<TrainingSessionDTO> trainingSessions = new ArrayList<>();
 
     public CategoryDTO(Category category) {
         this.id = category.getId();
         this.categoryName = category.getCategoryName();
-        this.trainingSessions = category.getTrainingSessions();
+        if(category.getTrainingSessions().size() <1) {
+            category.getTrainingSessions().forEach( myTrainingSession -> {
+                trainingSessions.add(new TrainingSessionDTO(myTrainingSession));
+            });
+        }
     }
 
     public Category getEntity() {
@@ -25,7 +29,9 @@ public class CategoryDTO {
             category.setId(this.id);
         }
         category.setCategoryName(this.categoryName);
-        category.setTrainingSessions(this.trainingSessions);
+        List<TrainingSession> myTrainingSessionList = new ArrayList<>();
+        this.trainingSessions.forEach(TrainingSessionDTO -> myTrainingSessionList.add(TrainingSessionDTO.getEntity()));
+        category.setTrainingSessions(myTrainingSessionList);
         return category;
     }
 
@@ -51,11 +57,11 @@ public class CategoryDTO {
         this.categoryName = categoryName;
     }
 
-    public List<TrainingSession> getTrainingSessions() {
+    public List<TrainingSessionDTO> getTrainingSessions() {
         return trainingSessions;
     }
 
-    public void setTrainingSessions(List<TrainingSession> trainingSessions) {
+    public void setTrainingSessions(List<TrainingSessionDTO> trainingSessions) {
         this.trainingSessions = trainingSessions;
     }
 
@@ -71,7 +77,7 @@ public class CategoryDTO {
     public int hashCode() {
         return Objects.hash(getId());
     }
-
+    
     @Override
     public String toString() {
         return "CategoryDTO{" +

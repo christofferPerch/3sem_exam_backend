@@ -11,24 +11,29 @@ public class TrainingSessionDTO {
     private int id;
     private String title;
     private String time;
-    private Date date;
+    private String date;
     private String fullAddress;
-    private Category category;
+    private CategoryDTO category;
     private int maxParticipants;
 
-    private List<User> users;
+    private List<UserDTO> users = new ArrayList<>();
 
     public TrainingSessionDTO(TrainingSession trainingSession) {
         if(trainingSession.getId() !=null) {
             this.id = trainingSession.getId();
         }
+
+        if(trainingSession.getUsers().size() <1) {
+            trainingSession.getUsers().forEach( user -> {
+                users.add(new UserDTO(user));
+            });
+        }
         this.title = trainingSession.getTitle();
         this.time = trainingSession.getTime();
         this.date = trainingSession.getDate();
         this.fullAddress = trainingSession.getFullAddress();
-        this.category = trainingSession.getCategory();
+        this.category = new CategoryDTO(trainingSession.getCategory());
         this.maxParticipants = trainingSession.getMaxParticipants();
-        this.users = trainingSession.getUsers();
     }
 
     public TrainingSession getEntity() {
@@ -36,11 +41,14 @@ public class TrainingSessionDTO {
         if (this.id > 0) {
             trainingSession.setId(this.id);
         }
+        List<User> myUserList = new ArrayList<>();
+        this.users.forEach(userDTO -> myUserList.add(userDTO.getEntity()));
+        trainingSession.setUsers(myUserList);
         trainingSession.setTitle(this.title);
         trainingSession.setTime(this.time);
         trainingSession.setDate(this.date);
         trainingSession.setFullAddress(this.fullAddress);
-        trainingSession.setCategory(this.category);
+        trainingSession.setCategory(this.category.getEntity());
         trainingSession.setMaxParticipants(this.maxParticipants);
         return trainingSession;
     }
@@ -75,11 +83,11 @@ public class TrainingSessionDTO {
         this.time = time;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -91,11 +99,11 @@ public class TrainingSessionDTO {
         this.fullAddress = fullAddress;
     }
 
-    public Category getCategory() {
+    public CategoryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(CategoryDTO category) {
         this.category = category;
     }
 
@@ -107,11 +115,11 @@ public class TrainingSessionDTO {
         this.maxParticipants = maxParticipants;
     }
 
-    public List<User> getUsers() {
+    public List<UserDTO> getUsers() {
         return users;
     }
 
-    public void setUsers(List<User> users) {
+    public void setUsers(List<UserDTO> users) {
         this.users = users;
     }
 
