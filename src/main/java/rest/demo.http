@@ -68,7 +68,7 @@ PUT http://localhost:8080/api/training/update
 Content-Type: application/json
 
 {
-  "id": 4,
+  "id": 1,
   "title": "I updated this through demo.http",
   "time": "08:10",
   "date": "2022-10-21",
