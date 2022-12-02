@@ -53,6 +53,8 @@ public class TrainingResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getById(@PathParam("trainingSessionId") int trainingSessionId) throws API_Exception {
         return Response.ok().entity(GSON.toJson(trainingFacade.getTrainingSession(trainingSessionId))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+//        public String getUserById(@PathParam("trainingSessionId") int id) throws API_Exception {
+//            return GSON.toJson(trainingFacade.getTrainingSession(id));
     }
 
     @PUT
@@ -66,9 +68,11 @@ public class TrainingResource {
     }
 
     @GET
+    @Path("/all") //get all
     @Produces({MediaType.APPLICATION_JSON})
-    @Path("all") //get all
     public Response allTrainingSessions() throws API_Exception {
-        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).build();
+//        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).build();
+        System.out.println(Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build());
+        return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 }
