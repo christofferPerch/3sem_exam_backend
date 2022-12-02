@@ -1,12 +1,9 @@
 package rest;
 
 import businessfacades.TrainingSessionDTOFacade;
-import businessfacades.UserDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import dtos.TrainingSessionDTO;
-import dtos.UserDTO;
 
 import java.nio.charset.StandardCharsets;
 import javax.persistence.EntityManagerFactory;
@@ -14,8 +11,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
+import entities.Category;
 import entities.TrainingSession;
 import errorhandling.API_Exception;
+import org.json.JSONObject;
 import utils.EMF_Creator;
 
 /**
