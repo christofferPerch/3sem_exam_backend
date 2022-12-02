@@ -1,0 +1,346 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package "java" {
+
+package "dtos" {
+UserDTO - AddressDTO
+UserDTO --- TrainingSessionDTO
+UserDTO -- CategoryDTO
+AddressDTO -- CityInfoDTO
+
+class UserDTO {
+- String userName;
+- String userEmail;
+- String userPass;
+- AddressDTO address;
+- List<TrainingSession> trainingSessions;
+- List<String> roleList;
+
++ getEntity()
++ getUserDTOs(List<User> users)
+}
+
+class AddressDTO {
+- int id;
+- String streetAddress;
+- CityInfoDTO cityInfo;
+- List<User> users;
+
++ getEntity()
++ getAddressDTOs(List<Address> addresses)
+}
+
+class TrainingSessionDTO {
+- Integer id;
+- String title;
+- String time;
+- String date;
+- String fullAddress;
+- Category category;
+- Integer maxParticipants;
+
++ getEntity()
++ getTrainingSessionDTOs(List<TrainingSession> trainingSessions)
+}
+
+class CategoryDTO {
+- Integer id;
+- String categoryName;
+- List<TrainingSession> trainingSessions;
+
++ getEntity()
++ getCategoryDTOs(List<Category> categories)
+}
+
+class CityInfoDTO {
+- int zipCode;
+- String cityName;
+
++ getEntity()
++ getCityInfoDTOs(List<CityInfo> cityInfos)
+}
+
+
+
+}
+
+
+package "facades" {
+
+class UserFacade {
+- EntityManagerFactory emf;
+- UserFacade instance;
+
++ getUserFacade()
++ getEntityManger()
++ getVerifiedUser()
++ createUser()
++ upateUser()
++ getUserByUserName()
++ getAllUsers()
++ deleteUser()
+
+}
+
+
+
+class TrainingSessionFacade {
+- EntityManagerFactory emf;
+- TrainingSessionFacade instance;
+
++ createTrainingSession()
++ getTrainingSession()
++ deleteTrainingSession()
++ getAllTrainingSessions()
++ editTrainingSession()
+
+}
+
+}
+
+
+package "rest" {
+
+class UserResource() {
+- EntityManagerFactory EMF;
+- UserFacade FACADE;
+- Gson GSON;
+
++ getById()
++ getAllUsers()
++ create()
++ update()
++ deleteUser()
+
+}
+
+class TrainingResource() {
+- EntityManagerFactory EMF;
+- TrainingSessionFacade FACADE;
+- Gson GSON;
+
++ createTrainingSession()
++ getTrainingSession()
++ deleteTrainingSession()
++ getAllTrainingSessions()
++ updateTrainingSession()
+
+}
+
+class LoginResource() {
+- EntityManagerFactory EMF;
+- Gson GSON;
+
++ getInfoForAll()
++ allUsers()
++ getFromUser()
++ getFromAdmin()
+
+}
+
+}
+
+package "entities" {
+TrainingSession -- User
+User -- Category
+User -- Role
+User - Address
+Address -- CityInfo
+
+class TrainingSession {
+- Integer id;
+- String title;
+- String time;
+- String date;
+- String fullAddress;
+- Category category;
+- Integer maxParticipants;
+- List<User> users;
+
+}
+
+class User {
+- String userName;
+- String userEmail;
+- String userPass;
+- Address address;
+- List<Role> roleList;
+- List<TrainingSession> trainingSessions;
+
++ getRolesAsStrings()
+}
+
+class Role {
+- String roleName;
+- List<User> userList;
+}
+
+class Category {
+- Integer id;
+- String categoryName;
+- List<TrainingSession> trainingSessions;
+}
+
+class Address {
+- Integer id;
+- String streetAddress;
+- CityInfo zipcode;
+- List<Address> addresses;
+}
+
+class CityInfo {
+- Integer zipCode;
+- String cityName;
+- List<Address> addresses;
+}
+
+}
+
+package "test" {
+
+package "datafacades" {
+
+class UserFacadeTest {
+- EntityManagerFactory emf;
+- static UserFacade facade;
+- User u1, u2;
+- CityInfo c1, c2;
+- Address a1, a2;
+
++ setUp()
++ createUserTest()
++ createNoDuplicateUsers()
++ findUserByUsername()
++ findAllUsers()
++ deleteUser()
++ updateUser()
++ CantFindUserToDelete()
+
+}
+
+class TrainingSessionFacadeTest {
+- EntityManagerFactory emf;
+- TrainingSessionFacade facade;
+- Category cat1, cat2;
+- TrainingSession ts1, ts2;
+- String myDate;
+
++ setUp()
++ createTrainingSessionTest()
++ createNoDuplicateTrainings()
++ findTrainingById()
++ findAllTrainings()
++ deleteTraining()
++ editTraining()
++ CantFindUserToDelete()
+
+
+}
+
+}
+
+package "businessfacades" {
+
+class UserDTOFacadeTest {
+- EntityManagerFactory emf;
+- UserDTOFacade facade;
+- UserDTO udto1, udto2;
+- CityInfo c1, c2;
+- Address a1, a2;
+
++ setUp()
++ createUserDTOTest()
++ createNoDuplicateUserDTOs()
++ findUserDTOByUsername()
++ findAllUserDTOs()
++ deleteUserDTO()
++ updateUserDTO()
++ CantFindUserDTOToDelete()
+
+}
+
+class TrainingSessionDTOFacadeTest {
+- EntityManagerFactory emf;
+- TrainingSessionDTOFacade facade;
+- Category cat1, cat2;
+- TrainingSessionDTO tdto1, tdto2;
+- TrainingSession ts1, ts2;
+- String myDate;
+
++ setUp()
++ createTrainingSessionDTOTest()
++ createNoDuplicateTrainingDTOs()
++ findTrainingDTOById()
++ findAllTrainingDTOs()
++ deleteTrainingDTO()
++ editTrainingDTO()
++ CantFindUserDTOToDelete()
+
+
+}
+}
+
+package "restTest" {
+
+class LoginEndpointTest {
+- int SERVER_PORT;
+- String SERVER_URL;
+
+- URI BASE_URI;
+- HttpServer httpServer;
+- EntityManagerFactory emf;
+- String securityToken;
+
+- login()
+- logOut()
++ setUp()
++ serverIsRunning()
++ testRestNoAuthenticationRequired()
++ testRestForAdmin()
++ testRestForUser()
++ testAutorizedUserCannotAccesAdminPage()
++ testAutorizedAdminCannotAccesUserPage()
++ testRestForMultiRole1()
++ void testRestForMultiRole2()
++ userNotAuthenticated()
++ adminNotAuthenticated()
+
+}
+
+class UserResourceTest {
+- int SERVER_PORT;
+- String SERVER_URL
+- UserDTO udto1, udto2;
+- CityInfo c1,c2;
+- Address a1,a2;
+- Gson GSON;
+- URI BASE_URI;
+- HttpServer httpServer;
+- EntityManagerFactory emf;
+
++ setUp()
++ testServerIsUp()
++ testLogRequest()
++ testLogResponse()
++ testPrintResponse()
++ allUsers()
++ getUserByUserName()
++ createUser()
++ deleteUser()
++ updateUser()
+
+
+
+}
+
+}
+
+facades --[hidden]> rest
+entities ---[hidden]> dtos
+
+}
+
+
+
+@enduml
