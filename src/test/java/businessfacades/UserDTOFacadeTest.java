@@ -26,12 +26,7 @@ public class UserDTOFacadeTest {
     Address a1,a2;
     Category cat1,cat2;
     TrainingSession t1, t2;
-    String myDate = "2022/10/29 18:10:45";
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    Date date = sdf.parse(myDate);
-
-    long millis = date.getTime();
-    java.sql.Timestamp date1= new Timestamp(millis);
+    String date1 = "2022/10/29";
 
     public UserDTOFacadeTest() throws ParseException {
     }

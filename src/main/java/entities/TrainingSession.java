@@ -19,7 +19,7 @@ public class TrainingSession {
     private String time;
 
     @Column(name = "date", nullable = false)
-    private Date date;
+    private String date;
 
     @Column(name = "full_address", nullable = false)
     private String fullAddress;
@@ -40,7 +40,7 @@ public class TrainingSession {
     public TrainingSession() {
     }
 
-    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
+    public TrainingSession(Integer id, String title, String time, String date, String fullAddress, Category category, Integer maxParticipants) {
         this.id = id;
         this.title = title;
         this.time = time;
@@ -50,7 +50,7 @@ public class TrainingSession {
         this.maxParticipants = maxParticipants;
     }
 
-    public TrainingSession(String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants) {
+    public TrainingSession(String title, String time, String date, String fullAddress, Category category, Integer maxParticipants) {
         this.title = title;
         this.time = time;
         this.date = date;
@@ -83,11 +83,11 @@ public class TrainingSession {
         this.time = time;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
@@ -131,7 +131,7 @@ public class TrainingSession {
         return getId().equals(that.getId());
     }
 
-    public TrainingSession(Integer id, String title, String time, Date date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
+    public TrainingSession(Integer id, String title, String time, String date, String fullAddress, Category category, Integer maxParticipants, List<User> users) {
         this.id = id;
         this.title = title;
         this.time = time;
