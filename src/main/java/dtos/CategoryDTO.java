@@ -29,9 +29,11 @@ public class CategoryDTO {
             category.setId(this.id);
         }
         category.setCategoryName(this.categoryName);
-        List<TrainingSession> myTrainingSessionList = new ArrayList<>();
-        this.trainingSessions.forEach(TrainingSessionDTO -> myTrainingSessionList.add(TrainingSessionDTO.getEntity()));
-        category.setTrainingSessions(myTrainingSessionList);
+        if(this.trainingSessions != null){
+            List<TrainingSession> myTrainingSessionList = new ArrayList<>();
+            this.trainingSessions.forEach(TrainingSessionDTO -> myTrainingSessionList.add(TrainingSessionDTO.getEntity()));
+            category.setTrainingSessions(myTrainingSessionList);
+        }
         return category;
     }
 
@@ -77,7 +79,7 @@ public class CategoryDTO {
     public int hashCode() {
         return Objects.hash(getId());
     }
-    
+
     @Override
     public String toString() {
         return "CategoryDTO{" +

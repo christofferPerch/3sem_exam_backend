@@ -41,9 +41,11 @@ public class TrainingSessionDTO {
         if (this.id > 0) {
             trainingSession.setId(this.id);
         }
-        List<User> myUserList = new ArrayList<>();
-        this.users.forEach(userDTO -> myUserList.add(userDTO.getEntity()));
-        trainingSession.setUsers(myUserList);
+        if(this.users != null){
+            List<User> myUserList = new ArrayList<>();
+            this.users.forEach(userDTO -> myUserList.add(userDTO.getEntity()));
+            trainingSession.setUsers(myUserList);
+        }
         trainingSession.setTitle(this.title);
         trainingSession.setTime(this.time);
         trainingSession.setDate(this.date);
