@@ -23,7 +23,7 @@ public class TrainingSessionDTO {
             this.id = trainingSession.getId();
         }
 
-        if(trainingSession.getUsers().size() <1) {
+        if(trainingSession.getUsers().size() >0) {
             trainingSession.getUsers().forEach( user -> {
                 users.add(new UserDTO(user));
             });

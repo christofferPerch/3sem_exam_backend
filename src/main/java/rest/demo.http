@@ -4,7 +4,7 @@ GET http://localhost:8080/api/info
 #### USER ENDPOINTS #####
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/ole123
+PUT http://localhost:8080/api/users/user
 Content-Type: application/json
 
 {
