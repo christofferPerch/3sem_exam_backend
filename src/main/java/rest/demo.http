@@ -35,7 +35,7 @@ POST http://localhost:8080/api/users/add/userfar/1
 Content-Type: application/json
 
 ### Deletes an existing person
-DELETE http://localhost:8080/api/users/user
+DELETE http://localhost:8080/api/users/usertest
 Content-Type: application/json
 
 
