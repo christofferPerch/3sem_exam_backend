@@ -1,5 +1,7 @@
 package rest;
 
+import entities.Address;
+import entities.CityInfo;
 import entities.User;
 import entities.Role;
 
@@ -27,7 +29,8 @@ public class LoginEndpointTest {
 
     private static final int SERVER_PORT = 7777;
     private static final String SERVER_URL = "http://localhost/api";
-
+    CityInfo c1,c2;
+    Address a1,a2;
     static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     private static HttpServer httpServer;
     private static EntityManagerFactory emf;
@@ -64,9 +67,14 @@ public class LoginEndpointTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createQuery("delete from User").executeUpdate();
-            em.createQuery("delete from Role").executeUpdate();
-
+            em.createNamedQuery("User.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Role.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
+            c1 = new CityInfo(2750,"Ballerup");
+            c2 = new CityInfo(2800,"Lyngby");
+            a1 = new Address("sankt jacobsvej",c1);
+            a2 = new Address("nørgardsvej",c2);
             Role userRole = new Role("user");
             Role adminRole = new Role("admin");
             User user = new User("user", "user@gmail.com","test");
@@ -76,6 +84,13 @@ public class LoginEndpointTest {
             User both = new User("user_admin", "user_admin@gmail.com","test");
             both.addRole(userRole);
             both.addRole(adminRole);
+            user.setAddress(a1);
+            admin.setAddress(a2);
+            both.setAddress(a2);
+            em.persist(c1);
+            em.persist(c2);
+            em.persist(a1);
+            em.persist(a2);
             em.persist(userRole);
             em.persist(adminRole);
             em.persist(user);
