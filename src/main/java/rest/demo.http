@@ -4,12 +4,21 @@ GET http://localhost:8080/api/info
 #### USER ENDPOINTS #####
 
 ### Updates an existing person
-PUT http://localhost:8080/api/users/user
+PUT http://localhost:8080/api/users/jorg
 Content-Type: application/json
 
 {
-  "userPass": "test",
-  "userEmail": "test@test.com"
+  "userName": "jorg",
+  "userEmail": "jorgemail",
+  "userPass": "jorg123",
+  "address": {
+    "id": 1,
+    "streetAddress": "Sankt Jacobsvej",
+    "cityInfo": {
+      "zipCode": 2750,
+      "cityName": "Ballerup"
+    }
+  }
 }
 
 ### List of all users
@@ -31,7 +40,7 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8080/api/users/add/userfar/1
+POST http://localhost:8080/api/users/add/jon/1
 Content-Type: application/json
 
 ### Deletes an existing person
@@ -84,7 +93,7 @@ GET http://localhost:8080/api/training/get/1
 Content-Type: application/json
 
 ### Get all
-GET http://localhost:8080/api/training/all
+GET http://localhost:8080/api/users/remove/
 Content-Type: application/json
 
 ###

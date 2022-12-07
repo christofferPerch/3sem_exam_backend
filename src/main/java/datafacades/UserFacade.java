@@ -134,6 +134,8 @@ public class UserFacade {
         try {
             em.getTransaction().begin();
             user.addTrainingSession(trainingSession);
+            em.merge(user);
+            em.merge(trainingSession);
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -156,6 +158,8 @@ public class UserFacade {
         try {
             em.getTransaction().begin();
             user.removeTrainingSession(trainingSession);
+            em.merge(user);
+            em.merge(trainingSession);
             em.getTransaction().commit();
 
         } catch (Exception e) {
