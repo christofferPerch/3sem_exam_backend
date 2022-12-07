@@ -70,4 +70,11 @@ public class TrainingResource {
     public Response allTrainingSessions() throws API_Exception {
         return Response.ok().entity(GSON.toJson(trainingFacade.getAllTrainingSessions())).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
+
+    @GET
+    @Path("/myschedule/{userName}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response getTrainingSessionsByUser(@PathParam("userName") String userName) throws API_Exception {
+        return Response.ok().entity(GSON.toJson(trainingFacade.getTrainingSessionsByUser(userName))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
 }

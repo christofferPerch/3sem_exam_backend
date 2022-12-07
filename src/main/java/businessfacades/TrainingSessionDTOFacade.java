@@ -11,6 +11,7 @@ import entities.User;
 import errorhandling.API_Exception;
 
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class TrainingSessionDTOFacade {
@@ -50,7 +51,12 @@ public class TrainingSessionDTOFacade {
         return TrainingSessionDTO.getTrainingSessionDTOs(trainingSessionFacade.getAllTrainingSessions());
     }
 
-    public String sendEmailToAllUsers(int trainingSessionId) throws UnirestException, API_Exception {
+    public List<TrainingSessionDTO> getTrainingSessionsByUser(String userName) throws API_Exception {
+        return TrainingSessionDTO.getTrainingSessionDTOs(trainingSessionFacade.getTrainingSessionsByUser(userName));
+    }
+
+
+        public String sendEmailToAllUsers(int trainingSessionId) throws UnirestException, API_Exception {
         TrainingSession trainingSession = trainingSessionFacade.getTrainingSession(trainingSessionId);
         for (User user : trainingSession.getUsers()) {
             if (trainingSession.getId().equals(trainingSessionId)) {

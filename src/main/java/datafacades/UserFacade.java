@@ -3,10 +3,9 @@ package datafacades;
 import entities.Role;
 import entities.TrainingSession;
 import entities.User;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
-import javax.persistence.TypedQuery;
+
+import javax.persistence.*;
+
 import errorhandling.API_Exception;
 import errorhandling.NotFoundException;
 import security.errorhandling.AuthenticationException;
@@ -133,7 +132,7 @@ public class UserFacade {
         TrainingSession trainingSession = em.find(TrainingSession.class,trainingSessionId);
         try {
             em.getTransaction().begin();
-            user.addTrainingSession(trainingSession);
+            trainingSession.getUsers().add(user);
             em.getTransaction().commit();
 
         } catch (Exception e) {

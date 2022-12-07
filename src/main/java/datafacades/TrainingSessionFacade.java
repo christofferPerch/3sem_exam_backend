@@ -4,6 +4,7 @@ import entities.TrainingSession;
 
 import javax.persistence.*;
 
+import entities.User;
 import errorhandling.API_Exception;
 
 import java.util.List;
@@ -79,6 +80,21 @@ public class TrainingSessionFacade {
             return query.getResultList();
         } catch (Exception e) {
             throw new API_Exception("could not find any training sessions", 404, e);
+        }
+    }
+
+    // Mangler at lave test metode til.
+    public List<TrainingSession> getTrainingSessionsByUser(String userName) throws EntityNotFoundException {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<TrainingSession> query = em.createQuery("SELECT ts FROM TrainingSession ts JOIN ts.users u " +
+                    "WHERE u.userName = :userName", TrainingSession.class);
+            query.setParameter("userName", userName);
+            List<TrainingSession> trainingSessions = query.getResultList();
+            return trainingSessions;
+        } finally {
+            em.close();
         }
     }
 
