@@ -160,10 +160,7 @@ public class UserDTOFacadeTest {
         assertEquals(12,actual);
 
     }
-    @Test
-    void cantFindUserToAddToTrainingSession() throws API_Exception {
-        assertThrows(API_Exception.class, () -> facade.addUserToTrainingSession("test",t1.getId()));
-    }
+
 
     @Test
     void removeUserToTrainingSession() throws API_Exception {

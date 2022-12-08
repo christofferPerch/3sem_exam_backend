@@ -123,6 +123,10 @@ public class TrainingSession {
         this.users = users;
     }
 
+    public void addUserToT(User user){
+        users.add(user);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
