@@ -5,6 +5,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.TrainingSessionDTO;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityNotFoundException;
@@ -76,5 +83,45 @@ public class TrainingResource {
     @Produces({MediaType.APPLICATION_JSON})
     public Response getTrainingSessionsByUser(@PathParam("userName") String userName) throws API_Exception {
         return Response.ok().entity(GSON.toJson(trainingFacade.getTrainingSessionsByUser(userName))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    }
+
+    @GET
+    @Path("/distance/{origin}/{destination}")
+    @Produces({MediaType.APPLICATION_JSON})
+    public String distance(@PathParam("origin") String origin, @PathParam("destination") String destination) throws IOException {
+//        URL url = new URL("https://api.chucknorris.io/jokes/random");
+        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&units=metric&key=AIzaSyBfA7cCuKdFVc_4NGxaCJ9XWqwelQyaFik");
+
+
+        String responseString = "";
+        HttpURLConnection MyConn = (HttpURLConnection) url.openConnection();
+        // Set the request method to "GET"
+        MyConn.setRequestMethod("GET");
+
+        // Collect the response code
+        int responseCode = MyConn.getResponseCode();
+        System.out.println("GET Response Code :: " + responseCode);
+
+        if (responseCode == MyConn.HTTP_OK) {
+            // Create a reader with the input stream reader.
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    MyConn.getInputStream()));
+            String inputLine;
+
+            // Create a string buffer
+            StringBuffer response = new StringBuffer();
+
+            // Write each of the input line
+            while ((inputLine = in.readLine()) != null) {
+                response.append(inputLine);
+            }
+            in.close();
+            //Show the output
+            responseString=response.toString();
+        } else {
+            responseString="Error found";
+        }
+
+        return responseString;
     }
 }
