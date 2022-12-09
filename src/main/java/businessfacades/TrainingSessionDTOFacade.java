@@ -15,7 +15,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class TrainingSessionDTOFacade {
-    private static final String APK_KEY = ""; //API KEY MUST BE SAVED IN SEPERATED FOLDER AND NOT BE DEPLOYED TO GITHUB!!!!!
+    private static final String APK_KEY = System.getenv("APIKEYMAIL");
 
     private static TrainingSessionDTOFacade instance;
     private static TrainingSessionFacade trainingSessionFacade;

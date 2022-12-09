@@ -89,8 +89,8 @@ public class TrainingResource {
     @Path("/distance/{origin}/{destination}")
     @Produces({MediaType.APPLICATION_JSON})
     public String distance(@PathParam("origin") String origin, @PathParam("destination") String destination) throws IOException {
-//        URL url = new URL("https://api.chucknorris.io/jokes/random");
-        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&units=metric&key=AIzaSyBfA7cCuKdFVc_4NGxaCJ9XWqwelQyaFik");
+        String APIKEY = System.getenv("APIKEYGOOGLE");
+        URL url = new URL("https://maps.googleapis.com/maps/api/distancematrix/json?origins="+origin+"&destinations="+destination+"&units=metric&key="+APIKEY);
 
 
         String responseString = "";
