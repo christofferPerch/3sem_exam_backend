@@ -3,6 +3,7 @@ package rest;
 import businessfacades.TrainingSessionDTOFacade;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import dtos.TrainingSessionDTO;
 
 import java.io.BufferedReader;
@@ -123,5 +124,13 @@ public class TrainingResource {
         }
 
         return responseString;
+    }
+
+    @POST
+    @Path("/sendReminder")
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes({MediaType.APPLICATION_JSON})
+    public Response sendEmailToAllUsersFromTrainingSession(int content) throws API_Exception, UnirestException {
+        return Response.ok().entity(GSON.toJson(trainingFacade.sendEmailToAllUsers(content))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 }
