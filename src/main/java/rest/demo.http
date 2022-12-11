@@ -96,4 +96,46 @@ Content-Type: application/json
 GET http://localhost:8080/api/users/remove/
 Content-Type: application/json
 
-###
+### email api test
+POST http://localhost:8080/api/training/sendReminder
+Content-Type: application/json
+
+{
+    "id": 3,
+    "title": "test",
+    "time": "test",
+    "date": "test",
+    "fullAddress": "test",
+    "category": {
+      "id": 1,
+      "categoryName": "Dans",
+      "trainingSessions": []
+    },
+    "maxParticipants": 2,
+    "users": [
+      {
+        "userName": "oscar",
+        "userEmail": "oscartuff@live.dk",
+        "userPass": "$2a$10$92bIgiWKJJt6ZeGeVT.lPu4bVje2JtvQWB0x82Ri7G/nuGO7xKxWq",
+        "address": {
+          "id": 4,
+          "streetAddress": "test",
+          "cityInfo": {
+            "zipCode": 2800,
+            "cityName": "Kongens Lyngby"
+          }
+        },
+        "trainingSessions": [
+          "test",
+          "test",
+          "test",
+          "test",
+          "1",
+          "2"
+        ],
+        "roleList": [
+          "user"
+        ]
+      }
+    ]
+  }

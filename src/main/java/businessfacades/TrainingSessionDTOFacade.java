@@ -11,11 +11,10 @@ import entities.User;
 import errorhandling.API_Exception;
 
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 public class TrainingSessionDTOFacade {
-    private static final String APK_KEY = System.getenv("APIKEYMAIL");
+    private static final String API_KEY = System.getenv("APIKEYMAIL");
 
     private static TrainingSessionDTOFacade instance;
     private static TrainingSessionFacade trainingSessionFacade;
@@ -60,9 +59,9 @@ public class TrainingSessionDTOFacade {
         TrainingSession trainingSession = trainingSessionFacade.getTrainingSession(trainingSessionId);
         for (User user : trainingSession.getUsers()) {
             if (trainingSession.getId().equals(trainingSessionId)) {
-                String YOUR_DOMAIN_NAME = "sandbox06d065eea4cc4b92bbc153a5d24516e9.mailgun.org";
+                String YOUR_DOMAIN_NAME = "sandbox105e482263764ff7925624c712e266a6.mailgun.org";
                 HttpResponse<JsonNode> request = Unirest.post("https://api.mailgun.net/v3/" + YOUR_DOMAIN_NAME + "/messages")
-                        .basicAuth("api", APK_KEY)
+                        .basicAuth("api", API_KEY)
                         .queryString("from", "You have an upcoming training session! trainer@lyngbys.me")
                         .queryString("to", user.getUserEmail())
                         .queryString("subject", "You have an upcoming training session!")

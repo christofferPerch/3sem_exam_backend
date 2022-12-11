@@ -130,7 +130,8 @@ public class TrainingResource {
     @Path("/sendReminder")
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response sendEmailToAllUsersFromTrainingSession(int content) throws API_Exception, UnirestException {
-        return Response.ok().entity(GSON.toJson(trainingFacade.sendEmailToAllUsers(content))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
+    public Response sendEmailToAllUsersFromTrainingSession(String content) throws API_Exception, UnirestException {
+        TrainingSessionDTO trainingSessionDTO = GSON.fromJson(content, TrainingSessionDTO.class);
+        return Response.ok().entity(GSON.toJson(trainingFacade.sendEmailToAllUsers(trainingSessionDTO.getId()))).type(MediaType.APPLICATION_JSON_TYPE.withCharset(StandardCharsets.UTF_8.name())).build();
     }
 }
