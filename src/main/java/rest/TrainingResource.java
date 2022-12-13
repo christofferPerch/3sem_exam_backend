@@ -88,6 +88,7 @@ public class TrainingResource {
 
     @GET
     @Path("/distance/{origin}/{destination}")
+    @Consumes({MediaType.TEXT_PLAIN})
     @Produces({MediaType.APPLICATION_JSON})
     public String distance(@PathParam("origin") String origin, @PathParam("destination") String destination) throws IOException {
         String APIKEY = System.getenv("APIKEYGOOGLE");

@@ -35,7 +35,7 @@ public class TrainingSessionFacade {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
-            em.persist(trainingSession);
+            em.merge(trainingSession);
             em.getTransaction().commit();
         } catch (Exception e) {
             throw new API_Exception("This is an error " + trainingSession.getId() + "!");
